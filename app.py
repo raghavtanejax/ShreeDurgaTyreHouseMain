@@ -2,13 +2,14 @@ import os
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
-from models import db, User, Tyre, QuoteRequest
-from forms import LoginForm, TyreForm, QuoteForm
+from models import db, User, Tyre, QuoteRequest, SiteSettings
+from forms import LoginForm, TyreForm, QuoteForm, SettingsForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
 import cloudinary
 import cloudinary.uploader
+from datetime import datetime
 
 load_dotenv()
 
@@ -45,7 +46,11 @@ def load_user(user_id):
 # Context Processor for injecting into all templates
 @app.context_processor
 def inject_now():
-    return {'year': 2026}
+    # Fetch settings, if none exist return a default empty object to avoid NoneType errors
+    settings = SiteSettings.query.first()
+    if not settings:
+        settings = SiteSettings()
+    return {'year': datetime.now().year, 'site_settings': settings}
 
 # PUBLIC ROUTES
 
@@ -214,10 +219,32 @@ def admin_quotes():
     quotes = QuoteRequest.query.order_by(QuoteRequest.date_submitted.desc()).all()
     return render_template('admin_quotes.html', quotes=quotes)
 
-@app.route('/admin/settings')
+@app.route('/admin/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
-    return render_template('6_site_settings.html')
+    settings = SiteSettings.query.first()
+    if not settings:
+        settings = SiteSettings()
+        db.session.add(settings)
+        db.session.commit()
+        
+    form = SettingsForm(obj=settings)
+    
+    if form.validate_on_submit():
+        settings.primary_contact = form.primary_contact.data
+        settings.secondary_contact = form.secondary_contact.data
+        settings.physical_address = form.physical_address.data
+        settings.google_maps_url = form.google_maps_url.data
+        settings.hindi_english_toggle = form.hindi_english_toggle.data
+        db.session.commit()
+        flash('Site settings updated successfully!', 'success')
+        return redirect(url_for('settings'))
+    elif request.method == 'POST':
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Error in {getattr(form, field).label.text}: {error}", 'error')
+                
+    return render_template('6_site_settings.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

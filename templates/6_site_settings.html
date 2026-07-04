@@ -28,7 +28,8 @@
 <p class="text-steel-gray">Manage your shop's contact details, location, and localization preferences.</p>
 </div>
 <!-- Settings Form Grid -->
-<form class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<form method="POST" class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+    {{ form.hidden_tag() }}
 <!-- Contact Information Card -->
 <div class="bg-surface-container-lowest border border-steel-gray/20 rounded p-6 shadow-sm hover:cut-shadow transition-shadow duration-200">
 <div class="flex items-center gap-3 mb-6 border-b border-steel-gray/20 pb-4">
@@ -38,11 +39,11 @@
 <div class="space-y-4">
 <div>
 <label class="block font-label-caps text-label-caps text-steel-gray mb-1">Primary Contact (Ashutosh)</label>
-<input class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors" placeholder="Enter phone number" type="tel" value="+91 9876543210"/>
+{{ form.primary_contact(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="Enter phone number") }}
 </div>
 <div>
 <label class="block font-label-caps text-label-caps text-steel-gray mb-1">Secondary Contact (Aman)</label>
-<input class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors" placeholder="Enter phone number" type="tel" value="+91 1234567890"/>
+{{ form.secondary_contact(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="Enter phone number") }}
 </div>
 </div>
 </div>
@@ -55,11 +56,11 @@
 <div class="space-y-4">
 <div>
 <label class="block font-label-caps text-label-caps text-steel-gray mb-1">Physical Address</label>
-<textarea class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors resize-none" rows="2">NH-44, Industrial Area, Delhi</textarea>
+{{ form.physical_address(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors resize-none", rows="2") }}
 </div>
 <div>
 <label class="block font-label-caps text-label-caps text-steel-gray mb-1">Google Maps URL</label>
-<input class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors" placeholder="https://maps.google.com/..." type="url" value="https://maps.google.com/..."/>
+{{ form.google_maps_url(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="https://maps.google.com/...") }}
 </div>
 </div>
 </div>
@@ -76,7 +77,7 @@
 </div>
 <!-- Toggle Switch -->
 <label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" type="checkbox"/>
+{{ form.hindi_english_toggle(class="sr-only peer") }}
 <div class="w-14 h-7 bg-steel-gray/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-steel-gray after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-safety-orange"></div>
 <span class="ml-3 font-label-caps text-label-caps text-primary">ENABLED</span>
 </label>
@@ -87,10 +88,7 @@
 <button class="px-6 py-3 rounded border border-steel-gray/30 text-steel-gray font-label-caps text-label-caps hover:bg-surface-container transition-colors" type="button">
                         CANCEL
                     </button>
-<button class="px-8 py-3 rounded bg-safety-orange text-primary font-label-caps text-label-caps border-b-2 border-[#cc5500] hover:bg-[#ff8533] transition-colors btn-press cut-shadow flex items-center gap-2" type="button">
-<span class="material-symbols-outlined text-sm">save</span>
-                        SAVE CHANGES
-                    </button>
+{{ form.submit(class="px-8 py-3 rounded bg-safety-orange text-primary font-label-caps text-label-caps border-b-2 border-[#cc5500] hover:bg-[#ff8533] transition-colors btn-press cut-shadow flex items-center gap-2") }}
 </div>
 </form>
 </div>

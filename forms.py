@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FloatField, IntegerField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, FloatField, IntegerField, SelectField, BooleanField
 from wtforms.validators import DataRequired, Length
 from flask_wtf.file import FileField, FileAllowed
 
@@ -23,4 +23,11 @@ class QuoteForm(FlaskForm):
     phone = StringField('PHONE NUMBER', validators=[DataRequired(), Length(max=50)])
     vehicle_type = SelectField('VEHICLE / TYRE TYPE', choices=[('MRF', 'MRF'), ('Apollo', 'Apollo'), ('Birla', 'Birla'), ('Other', 'Other')], validators=[DataRequired()])
     message = StringField('MESSAGE', validators=[DataRequired()])
-    submit = SubmitField('Send Request')
+
+class SettingsForm(FlaskForm):
+    primary_contact = StringField('Primary Contact', validators=[DataRequired(), Length(max=50)])
+    secondary_contact = StringField('Secondary Contact', validators=[Length(max=50)])
+    physical_address = StringField('Physical Address', validators=[DataRequired()])
+    google_maps_url = StringField('Google Maps URL', validators=[DataRequired(), Length(max=255)])
+    hindi_english_toggle = BooleanField('Hindi / English Toggle')
+    submit = SubmitField('Save Changes')

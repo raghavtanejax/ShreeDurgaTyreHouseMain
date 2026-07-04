@@ -36,3 +36,11 @@ class QuoteRequest(db.Model):
     vehicle_type = db.Column(db.String(100), nullable=False)
     message = db.Column(db.Text, nullable=False)
     date_submitted = db.Column(db.DateTime, default=datetime.utcnow)
+
+class SiteSettings(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    primary_contact = db.Column(db.String(50), default="+91 9876543210")
+    secondary_contact = db.Column(db.String(50), default="+91 1234567890")
+    physical_address = db.Column(db.Text, default="NH-44, Industrial Area, Delhi")
+    google_maps_url = db.Column(db.String(255), default="https://maps.google.com/")
+    hindi_english_toggle = db.Column(db.Boolean, default=True)
