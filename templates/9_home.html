@@ -117,33 +117,27 @@
 <!-- Form -->
 <div class="bg-surface border-t-4 border-safety-orange border-x border-b border-x-steel-gray/20 border-b-steel-gray/20 p-8 rounded-b-lg shadow-sm">
 <h3 class="font-headline-lg text-headline-lg text-primary mb-6">Request a Quote</h3>
-<form class="space-y-6">
+<form method="POST" action="{{ url_for('index') }}" class="space-y-6">
+    {{ form.hidden_tag() }}
 <div>
-<label class="block font-label-caps text-steel-gray mb-2">Name</label>
-<input class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors" type="text">
+{{ form.full_name.label(class="block font-label-caps text-steel-gray mb-2") }}
+{{ form.full_name(class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors", placeholder="Name") }}
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
-<label class="block font-label-caps text-steel-gray mb-2">Phone</label>
-<input class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors" type="tel">
+{{ form.phone.label(class="block font-label-caps text-steel-gray mb-2") }}
+{{ form.phone(class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors", placeholder="Phone") }}
 </div>
 <div>
-<label class="block font-label-caps text-steel-gray mb-2">Vehicle Type</label>
-<select class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors">
-<option>Select Type</option>
-<option>Truck / Commercial</option>
-<option>Car / SUV</option>
-<option>Bike / Scooter</option>
-</select>
+{{ form.vehicle_type.label(class="block font-label-caps text-steel-gray mb-2") }}
+{{ form.vehicle_type(class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
 </div>
 </div>
 <div>
-<label class="block font-label-caps text-steel-gray mb-2">Message (Optional)</label>
-<textarea class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors" rows="3"></textarea>
+{{ form.message.label(class="block font-label-caps text-steel-gray mb-2") }}
+{{ form.message(class="w-full bg-surface-container-low border border-steel-gray/30 rounded-DEFAULT p-3 font-body-md text-primary focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors", rows="3") }}
 </div>
-<button class="w-full bg-safety-orange text-tertiary font-body-lg text-body-lg font-bold py-4 rounded-DEFAULT border-b-2 border-secondary hover:bg-secondary-container transition-colors shadow-[0_4px_0_0_#000000] active:translate-y-1 active:shadow-none" type="button">
-                                Send Request
-                            </button>
+{{ form.submit(class="w-full bg-safety-orange text-tertiary font-body-lg text-body-lg font-bold py-4 rounded-DEFAULT border-b-2 border-secondary hover:bg-secondary-container transition-colors shadow-[0_4px_0_0_#000000] active:translate-y-1 active:shadow-none") }}
 </form>
 </div>
 </div>

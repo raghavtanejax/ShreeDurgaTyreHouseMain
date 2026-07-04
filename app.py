@@ -33,9 +33,21 @@ def inject_now():
 
 # PUBLIC ROUTES
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('9_home.html')
+    form = QuoteForm()
+    if form.validate_on_submit():
+        quote = QuoteRequest(
+            full_name=form.full_name.data,
+            phone=form.phone.data,
+            vehicle_type=form.vehicle_type.data,
+            message=form.message.data
+        )
+        db.session.add(quote)
+        db.session.commit()
+        flash('Your request has been sent! We will contact you shortly.', 'success')
+        return redirect(url_for('index'))
+    return render_template('9_home.html', form=form)
 
 @app.route('/categories')
 def categories():
