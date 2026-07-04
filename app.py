@@ -138,7 +138,7 @@ def inventory():
     form = TyreForm()
     if form.validate_on_submit():
         filename = None
-        if form.image.data:
+        if form.image.data and form.image.data.filename:
             # Upload to Cloudinary
             upload_result = cloudinary.uploader.upload(form.image.data)
             filename = upload_result.get('secure_url')
@@ -160,6 +160,10 @@ def inventory():
         except IntegrityError:
             db.session.rollback()
             flash('SKU already exists!', 'error')
+    elif request.method == 'POST':
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Error in {getattr(form, field).label.text}: {error}", 'error')
     
     # Simple search handling
     search = request.args.get('q')
