@@ -54,7 +54,7 @@
 <div class="lg:col-span-2 flex justify-start w-full lg:w-auto mb-4 lg:mb-0 lg:p-4">
 <div class="w-16 h-16 bg-surface-container-low rounded border border-steel-gray/10 flex items-center justify-center p-2 overflow-hidden">
 {% if tyre.image_filename %}
-<img src="{{ url_for('static', filename='images/uploads/' + tyre.image_filename) }}" alt="{{ tyre.model }}" class="max-w-full max-h-full object-contain">
+<img src="{% if tyre.image_filename.startswith('http') %}{{ tyre.image_filename }}{% else %}{{ url_for('static', filename='images/uploads/' + tyre.image_filename) }}{% endif %}" alt="{{ tyre.model }}" class="max-w-full max-h-full object-contain">
 {% else %}
 <span class="font-headline-md font-bold text-primary">{{ tyre.brand[0] }}</span>
 {% endif %}

@@ -6,10 +6,17 @@ from models import db, User, Tyre, QuoteRequest
 from forms import LoginForm, TyreForm, QuoteForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
 
-UPLOAD_FOLDER = 'static/images/uploads'
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+load_dotenv()
+
+cloudinary.config(
+  cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
+  api_key = os.environ.get('CLOUDINARY_API_KEY'),
+  api_secret = os.environ.get('CLOUDINARY_API_SECRET')
+)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'shreedurgatyrehouse_super_secret_key'
@@ -132,9 +139,9 @@ def inventory():
     if form.validate_on_submit():
         filename = None
         if form.image.data:
-            filename = secure_filename(form.image.data.filename)
-            if filename:
-                form.image.data.save(os.path.join(UPLOAD_FOLDER, filename))
+            # Upload to Cloudinary
+            upload_result = cloudinary.uploader.upload(form.image.data)
+            filename = upload_result.get('secure_url')
                 
         tyre = Tyre(
             model=form.model.data,
