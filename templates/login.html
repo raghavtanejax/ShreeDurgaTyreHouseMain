@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Admin Login - Shree Durga Tyre House{% endblock %}
+{% block content %}
+<section class="py-section-gap bg-surface min-h-[70vh] flex items-center justify-center">
+<div class="max-w-md w-full px-margin-mobile">
+<div class="bg-surface-container-lowest border border-steel-gray/20 rounded-lg p-8 shadow-[4px_4px_0_0_#4A4A4A]">
+    <div class="text-center mb-8">
+        <h2 class="font-headline-lg text-headline-lg text-primary mb-2">Admin Login</h2>
+        <p class="font-body-md text-steel-gray">Secure access to inventory manager.</p>
+    </div>
+    <form method="POST" action="{{ url_for('login') }}" class="space-y-6">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label(class="block font-label-caps text-steel-gray mb-2") }}
+            {{ form.username(class="w-full bg-surface border border-steel-gray/40 rounded px-4 py-3 font-body-md focus:border-safety-orange focus:ring-1 focus:ring-safety-orange outline-none", placeholder="Username") }}
+            {% for error in form.username.errors %}
+                <span class="text-error text-sm">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.password.label(class="block font-label-caps text-steel-gray mb-2") }}
+            {{ form.password(class="w-full bg-surface border border-steel-gray/40 rounded px-4 py-3 font-body-md focus:border-safety-orange focus:ring-1 focus:ring-safety-orange outline-none", placeholder="Password") }}
+            {% for error in form.password.errors %}
+                <span class="text-error text-sm">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <button type="submit" class="w-full bg-safety-orange text-tertiary font-body-lg text-body-lg font-bold py-3 rounded border-b-2 border-secondary hover:bg-secondary-container transition-colors shadow-[0_4px_0_0_#000000] active:translate-y-1 active:shadow-none">
+            Secure Login
+        </button>
+    </form>
+</div>
+</div>
+</section>
+{% endblock %}

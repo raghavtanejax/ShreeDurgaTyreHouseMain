@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{% block title %}Admin Dashboard - Shree Durga Tyre House{% endblock %}</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "steel-gray": "#4A4A4A",
+                      "on-secondary-fixed-variant": "#7a3000",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#1c1b1b",
+                      "primary": "#000000",
+                      "inverse-surface": "#313030",
+                      "on-surface-variant": "#444748",
+                      "surface": "#fdf8f8",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#f4f0ef",
+                      "surface-variant": "#e5e2e1",
+                      "outline": "#747878",
+                      "secondary-container": "#fe6b00",
+                      "on-background": "#1c1b1b",
+                      "error-container": "#ffdad6",
+                      "on-secondary-container": "#572000",
+                      "surface-bright": "#fdf8f8",
+                      "tertiary-container": "#1c1b1a",
+                      "background": "#fdf8f8",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#474646",
+                      "tertiary": "#000000",
+                      "tertiary-fixed-dim": "#cac6c3",
+                      "surface-tint": "#5f5e5e",
+                      "surface-container-high": "#ebe7e6",
+                      "charcoal-black": "#121212",
+                      "on-tertiary-fixed": "#1c1b1a",
+                      "error": "#ba1a1a",
+                      "secondary": "#a04100",
+                      "service-blue": "#0052CC",
+                      "hindi-toggle-bg": "#F4F4F4",
+                      "tertiary-fixed": "#e6e1df",
+                      "safety-orange": "#FF6B00",
+                      "on-tertiary-fixed-variant": "#484645",
+                      "secondary-fixed-dim": "#ffb693",
+                      "on-primary-fixed": "#1c1b1b",
+                      "inverse-primary": "#c8c6c5",
+                      "primary-fixed": "#e5e2e1",
+                      "on-secondary-fixed": "#351000",
+                      "on-tertiary-container": "#868381",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "surface-container-highest": "#e5e2e1",
+                      "primary-container": "#1c1b1b",
+                      "surface-container": "#f1edec",
+                      "surface-dim": "#ddd9d8",
+                      "secondary-fixed": "#ffdbcc",
+                      "surface-container-low": "#f7f3f2",
+                      "on-primary-container": "#858383",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c4c7c7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "unit": "4px",
+                      "section-gap": "80px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Sora", "sans-serif"],
+                      "headline-md": ["Sora", "sans-serif"],
+                      "label-caps": ["JetBrains Mono", "monospace"],
+                      "body-md": ["Hanken Grotesk", "sans-serif"],
+                      "hindi-standard": ["Hanken Grotesk", "sans-serif"],
+                      "headline-lg-mobile": ["Sora", "sans-serif"],
+                      "headline-display": ["Sora", "sans-serif"],
+                      "body-lg": ["Hanken Grotesk", "sans-serif"]
+              }
+            }
+          }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&amp;family=JetBrains+Mono:wght@700&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar for an industrial feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fdf8f8; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A4A4A; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6B00; 
+        }
+        
+        .industrial-shadow {
+            box-shadow: 4px 4px 0px 0px #000000;
+        }
+        .industrial-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 4px 8px 0px 0px #000000;
+        }
+        {% block extra_css %}{% endblock %}
+</style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+    {% for category, message in messages %}
+      <div class="p-4 mb-4 text-sm rounded-lg {{ 'bg-error-container text-on-error-container' if category == 'error' else 'bg-green-100 text-green-800' }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-steel-gray/20 w-full top-0 z-50">
+<div class="flex justify-between items-center px-margin-desktop w-full max-w-7xl mx-auto h-20 md:px-margin-desktop px-margin-mobile">
+<!-- Brand -->
+<div class="text-headline-md font-headline-md font-extrabold text-tertiary flex items-center gap-2">
+<span class="material-symbols-outlined text-safety-orange" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+                <a href="{{ url_for('admin_dashboard') }}">Shree Durga Tyre House</a>
+            </div>
+<!-- Admin Navigation (Desktop) -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="{% if request.endpoint == 'admin_dashboard' %}text-safety-orange border-b-2 border-safety-orange pb-1{% else %}text-steel-gray hover:text-safety-orange{% endif %} font-bold font-body-lg text-body-lg transition-colors duration-200" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+<a class="{% if request.endpoint == 'inventory' %}text-safety-orange border-b-2 border-safety-orange pb-1{% else %}text-steel-gray hover:text-safety-orange{% endif %} font-bold font-body-lg text-body-lg transition-colors duration-200" href="{{ url_for('inventory') }}">Inventory</a>
+<a class="{% if request.endpoint == 'settings' %}text-safety-orange border-b-2 border-safety-orange pb-1{% else %}text-steel-gray hover:text-safety-orange{% endif %} font-bold font-body-lg text-body-lg transition-colors duration-200" href="{{ url_for('settings') }}">Settings</a>
+<a class="text-steel-gray font-body-lg text-body-lg hover:text-safety-orange transition-colors duration-200" href="{{ url_for('index') }}" target="_blank">View Site</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 font-body-lg text-body-lg font-medium text-steel-gray hover:text-safety-orange">
+<span class="material-symbols-outlined">settings</span>
+                    {{ current_user.username }}
+                </button>
+<a href="{{ url_for('logout') }}" class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors duration-200">Logout</a>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12">
+{% block content %}
+{% endblock %}
+</main>
+</body>
+</html>

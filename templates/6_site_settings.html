@@ -1,0 +1,98 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<!-- Sidebar Navigation (Admin) -->
+<aside class="w-full md:w-64 flex flex-col gap-4">
+<div class="bg-surface-container-low p-6 rounded border border-steel-gray/20">
+<h3 class="font-headline-md text-headline-md mb-6">Admin Panel</h3>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 p-3 rounded text-steel-gray hover:bg-surface-container hover:text-safety-orange transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                        Dashboard
+                    </a>
+<a class="flex items-center gap-3 p-3 rounded bg-surface-container text-safety-orange font-bold border-l-4 border-safety-orange" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tune</span>
+                        Site Settings
+                    </a>
+<a class="flex items-center gap-3 p-3 rounded text-steel-gray hover:bg-surface-container hover:text-safety-orange transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                        Inventory
+                    </a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-grow flex flex-col gap-8">
+<div>
+<h1 class="font-headline-display text-headline-display md:text-headline-display text-primary mb-2">Content &amp; Settings</h1>
+<p class="text-steel-gray">Manage your shop's contact details, location, and localization preferences.</p>
+</div>
+<!-- Settings Form Grid -->
+<form class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Contact Information Card -->
+<div class="bg-surface-container-lowest border border-steel-gray/20 rounded p-6 shadow-sm hover:cut-shadow transition-shadow duration-200">
+<div class="flex items-center gap-3 mb-6 border-b border-steel-gray/20 pb-4">
+<span class="material-symbols-outlined text-safety-orange text-2xl">contact_phone</span>
+<h2 class="font-headline-md text-headline-md">Contact Numbers</h2>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Primary Contact (Ashutosh)</label>
+<input class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors" placeholder="Enter phone number" type="tel" value="+91 9876543210"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Secondary Contact (Aman)</label>
+<input class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors" placeholder="Enter phone number" type="tel" value="+91 1234567890"/>
+</div>
+</div>
+</div>
+<!-- Location & Address Card -->
+<div class="bg-surface-container-lowest border border-steel-gray/20 rounded p-6 shadow-sm hover:cut-shadow transition-shadow duration-200">
+<div class="flex items-center gap-3 mb-6 border-b border-steel-gray/20 pb-4">
+<span class="material-symbols-outlined text-safety-orange text-2xl">location_on</span>
+<h2 class="font-headline-md text-headline-md">Location Details</h2>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Physical Address</label>
+<textarea class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors resize-none" rows="2">NH-44, Industrial Area, Delhi</textarea>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Google Maps URL</label>
+<input class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors" placeholder="https://maps.google.com/..." type="url" value="https://maps.google.com/..."/>
+</div>
+</div>
+</div>
+<!-- Localization Card -->
+<div class="bg-surface-container-lowest border border-steel-gray/20 rounded p-6 shadow-sm hover:cut-shadow transition-shadow duration-200 lg:col-span-2">
+<div class="flex items-center gap-3 mb-6 border-b border-steel-gray/20 pb-4">
+<span class="material-symbols-outlined text-safety-orange text-2xl">language</span>
+<h2 class="font-headline-md text-headline-md">Localization</h2>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-body-md font-bold text-primary">Hindi / English Toggle</h4>
+<p class="text-steel-gray text-sm mt-1">Enable bilingual support on the customer storefront.</p>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-14 h-7 bg-steel-gray/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-steel-gray after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-safety-orange"></div>
+<span class="ml-3 font-label-caps text-label-caps text-primary">ENABLED</span>
+</label>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="lg:col-span-2 flex justify-end gap-4 mt-4 pt-6 border-t border-steel-gray/20">
+<button class="px-6 py-3 rounded border border-steel-gray/30 text-steel-gray font-label-caps text-label-caps hover:bg-surface-container transition-colors" type="button">
+                        CANCEL
+                    </button>
+<button class="px-8 py-3 rounded bg-safety-orange text-primary font-label-caps text-label-caps border-b-2 border-[#cc5500] hover:bg-[#ff8533] transition-colors btn-press cut-shadow flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-sm">save</span>
+                        SAVE CHANGES
+                    </button>
+</div>
+</form>
+</div>
+
+{% endblock %}

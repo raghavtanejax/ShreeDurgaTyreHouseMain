@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 space-y-6">
+<h1 class="font-headline-display text-headline-display text-tertiary">Get in Touch</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Whether you need a single replacement or a complete set of heavy-duty crane tyres, our experts are ready to help you find the right fit. Visit our store or call us directly.</p>
+</div>
+<div class="md:col-span-7">
+<div class="relative w-full h-[400px] overflow-hidden border border-steel-gray/20 shadow-[4px_4px_0_0_#000000] rounded">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALbL8eDcnF6dEYFy0AgpG5h_AS6OjnHGcAREG_5yPuj-laJiMspT7n6Zo6VgiYHxZLlmHNvXIgvxsjpgtFRcjn5jQTfmCJHt319OSKObJKg1ipKDTJ91gbzMNfeyi9sz1L6NBhq3oC-vG-ypekG_GAIi0cnAPx0G5FceERqEJtYbmUi1jit5lbVlnBdKMWlBcmykU652mFUPuIuV8GdtmV37wF_7siVV5psLQMbJYxNHNP6rZ7VwBpgKkpcXwytZgjTJ835pWG19ZSbrI" alt="A professional extreme close-up of a firm handshake between two businessmen in an industrial showroom with a heavy-duty tyre in the foreground.">
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Info & Form Section -->
+<section class="bg-surface-container-low py-12 md:py-section-gap border-y border-steel-gray/20">
+<div class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Contact Details -->
+<div class="md:col-span-4 space-y-8">
+<div>
+<h3 class="font-headline-md text-headline-md text-tertiary mb-2">Visit Our Store</h3>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-start gap-2"><span class="material-symbols-outlined text-safety-orange mt-1">location_on</span>Shop no. 35, opposite HP petrol pump,<br>Ambala road gurunanak market, saharanpur , Uttar Pradesh , India<a href="https://maps.google.com/?q=Shree+Durga+Tyre+House+Saharanpur" target="_blank" class="text-safety-orange hover:text-orange-500 font-bold text-sm flex items-center gap-1 ml-2 mt-1 transition-colors"><span class="material-symbols-outlined text-sm">open_in_new</span>View on Maps</a></p>
+</div>
+<div class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-tertiary">Direct Lines</h3>
+<!-- Ashutosh -->
+<div class="bg-surface border border-steel-gray/20 p-4 rounded hover:shadow-[4px_4px_0_0_#000000] transition-shadow duration-200">
+<div class="flex items-center justify-between">
+<div>
+<p class="font-bold text-tertiary">Ashutosh Batra</p>
+<p class="text-on-surface-variant text-sm">Owner</p>
+</div>
+<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:+910000000000">
+<span class="material-symbols-outlined">call</span>
+</a>
+</div>
+</div>
+<!-- Aman -->
+<div class="bg-surface border border-steel-gray/20 p-4 rounded hover:shadow-[4px_4px_0_0_#000000] transition-shadow duration-200">
+<div class="flex items-center justify-between">
+<div>
+<p class="font-bold text-tertiary">Aman</p>
+
+</div>
+<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:+910000000000">
+<span class="material-symbols-outlined">call</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Form -->
+<div class="md:col-span-8 bg-surface border-t-4 border-safety-orange p-6 md:p-8 rounded shadow-sm">
+<h3 class="font-headline-md text-headline-md text-tertiary mb-6">Send an Inquiry</h3>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-tertiary block">FULL NAME</label>
+<input class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary" placeholder="John Doe" type="text">
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-tertiary block">PHONE NUMBER</label>
+<input class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary" placeholder="+91 00000 00000" type="tel">
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-tertiary block">VEHICLE / TYRE TYPE</label>
+<select class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary"><option>MRF</option><option>Apollo</option><option>Birla</option><option>Other</option></select>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-tertiary block">MESSAGE</label>
+<textarea class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary" placeholder="Tell us which tyres you are looking for..." rows="4"></textarea>
+</div>
+<button class="w-full md:w-auto bg-safety-orange text-primary font-bold py-3 px-8 rounded btn-tactile hover:bg-orange-500 transition-colors" type="submit">
+                            Send Request
+                        </button>
+</form>
+</div>
+</div>
+</section>
+<!-- Map Section -->
+<section class="w-full h-[500px] bg-surface-dim relative border-b-4 border-safety-orange">
+<img class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A highly detailed overhead map view showing an industrial district with roads and a clear location marker. The style is modern, sharp, and uses a high-contrast corporate palette with subtle gray tones and a bright orange accent pinpoint indicating the tyre shop location." data-location="Ambala" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiO_1jJittiWOteT5XH8WzrPzmdVIte8iB37G81sXL1F-zcdubHSPCDmryXfDo3UyYCV9tDgB3U0YelouPbcsknTwj2OutH2wshuXmH6ktVsv346cG7lLd0RNSe2wggvR8tidug-a3lUlm-91vDDt5b3U8K8ZF5yWFRmNCsLs-pCgoVr6tJ2lxod8Wwqn-1wnDE7ky1tru4y7el43b-fdoK1-sgZ5KxfnIqZXOZRWUfd3JwJWpEthoQt6JPUU-ohkGvOwQEuFyYRXN">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="bg-surface p-4 rounded shadow-[4px_4px_0_0_#000000] border border-steel-gray/20 flex flex-col items-center">
+<span class="material-symbols-outlined text-safety-orange text-4xl mb-2" style="font-variation-settings: &quot;FILL&quot; 1;">location_on</span>
+<span class="font-bold text-tertiary">Shree Durga Tyre House</span>
+</div>
+</div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,258 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-section-gap gap-6">
+<div>
+<h1 class="font-headline-display text-headline-display text-primary mb-2">Admin Control</h1>
+<p class="font-body-lg text-body-lg text-steel-gray">Overview and operations for Shree Durga Tyre House.</p>
+</div>
+<div class="flex gap-4">
+<button onclick="alert('Activity Log feature coming soon!')" class="flex-1 md:flex-none bg-surface border level-1-border text-primary font-label-caps text-label-caps px-6 py-3 hover:bg-surface-container transition-colors flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:text-safety-orange transition-colors">history</span>
+                    ACTIVITY LOG
+                </button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Key Metrics (Top Row) -->
+<div class="md:col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-8">
+<!-- Stat Card 1 -->
+<div class="bg-surface p-6 level-1-border border-t-4 border-t-safety-orange transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-steel-gray">TOTAL TYRE MODELS</span>
+<span class="material-symbols-outlined text-safety-orange">request_quote</span>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-display text-headline-display text-primary">{{ total_inventory }}</span>
+<span class="font-label-caps text-label-caps text-[#00875A] flex items-center bg-[#E3FCEF] px-2 py-1 rounded-sm">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 12%
+                        </span>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-surface p-6 level-1-border border-t-4 border-t-steel-gray transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-steel-gray">LOW STOCK ITEMS</span>
+<span class="material-symbols-outlined text-steel-gray">inbox</span>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-display text-headline-display text-primary">{{ low_stock }}</span>
+<span class="font-label-caps text-label-caps text-[#DE350B] flex items-center bg-[#FFEBE6] px-2 py-1 rounded-sm">
+<span class="material-symbols-outlined text-[14px]">priority_high</span> ACTION REQ
+                        </span>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-surface p-6 level-1-border border-t-4 border-t-steel-gray transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-steel-gray">ACTIVE INVENTORY</span>
+<span class="material-symbols-outlined text-steel-gray">inventory_2</span>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-display text-headline-display text-primary">{{ total_stock }}</span>
+<span class="font-body-md text-body-md text-steel-gray">Units</span>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="bg-surface p-6 level-1-border border-t-4 border-t-steel-gray transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-steel-gray">TODAY'S DISPATCHES</span>
+<span class="material-symbols-outlined text-steel-gray">local_shipping</span>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-display text-headline-display text-primary">12</span>
+<span class="font-body-md text-body-md text-steel-gray">Scheduled</span>
+</div>
+</div>
+</div>
+<!-- Main Content Area -->
+<!-- Left Column: Inventory & Charts (8 cols) -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- Inventory Breakdown (Bento Style) -->
+<div class="bg-surface level-1-border p-6 relative overflow-hidden group">
+<!-- Subtle background pattern indicative of tire tread -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="flex justify-between items-center mb-6 relative z-10">
+<h2 class="font-headline-md text-headline-md text-primary">Inventory by Brand</h2>
+<a class="font-label-caps text-label-caps text-safety-orange hover:underline flex items-center gap-1" href="{{ url_for('inventory') }}">
+                            VIEW FULL STOCK <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
+<!-- Brand 1: MRF -->
+<div class="bg-surface-container-low p-4 level-1-border hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 bg-primary text-white flex items-center justify-center font-headline-md text-headline-md font-bold rounded-sm">M</div>
+<span class="font-headline-lg text-headline-lg-mobile text-primary">MRF</span>
+</div>
+<div class="flex justify-between items-end border-b border-steel-gray/20 pb-2 mb-2">
+<span class="font-body-md text-body-md text-steel-gray">Heavy Duty</span>
+<span class="font-body-lg text-body-lg font-bold">1,240</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-body-md text-body-md text-steel-gray">Passenger</span>
+<span class="font-body-lg text-body-lg font-bold">850</span>
+</div>
+</div>
+<!-- Brand 2: Apollo -->
+<div class="bg-surface-container-low p-4 level-1-border hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 bg-primary text-white flex items-center justify-center font-headline-md text-headline-md font-bold rounded-sm">A</div>
+<span class="font-headline-lg text-headline-lg-mobile text-primary">Apollo</span>
+</div>
+<div class="flex justify-between items-end border-b border-steel-gray/20 pb-2 mb-2">
+<span class="font-body-md text-body-md text-steel-gray">Commercial</span>
+<span class="font-body-lg text-body-lg font-bold">980</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-body-md text-body-md text-steel-gray">Two-Wheeler</span>
+<span class="font-body-lg text-body-lg font-bold">1,420</span>
+</div>
+</div>
+<!-- Brand 3: Birla -->
+<div class="bg-surface-container-low p-4 level-1-border hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 bg-primary text-white flex items-center justify-center font-headline-md text-headline-md font-bold rounded-sm">B</div>
+<span class="font-headline-lg text-headline-lg-mobile text-primary">Birla</span>
+</div>
+<div class="flex justify-between items-end border-b border-steel-gray/20 pb-2 mb-2">
+<span class="font-body-md text-body-md text-steel-gray">Agricultural</span>
+<span class="font-body-lg text-body-lg font-bold">450</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-body-md text-body-md text-steel-gray">Industrial</span>
+<span class="font-body-lg text-body-lg font-bold">320</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity Table (Industrial Style) -->
+<div class="bg-surface level-1-border p-6 overflow-hidden">
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Recent Dispatch Activity</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[600px]">
+<thead>
+<tr class="border-b-2 border-primary">
+<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">ID</th>
+<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">CLIENT</th>
+<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">CATEGORY</th>
+<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">STATUS</th>
+<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2 text-right">QTY</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-steel-gray/10 hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-2 font-label-caps text-label-caps">#TRK-902</td>
+<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Sharma Logistics</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-steel-gray">local_shipping</span>
+<span class="font-body-md text-body-md">Truck</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="bg-[#E3FCEF] text-[#00875A] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#00875A]/20">DISPATCHED</span>
+</td>
+<td class="py-4 px-2 font-body-lg text-body-lg text-right">24</td>
+</tr>
+<tr class="border-b border-steel-gray/10 hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-2 font-label-caps text-label-caps">#CRN-114</td>
+<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Metro Builders</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-steel-gray">precision_manufacturing</span>
+<span class="font-body-md text-body-md">Crane</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="bg-[#FFF0B3] text-[#FF8B00] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#FF8B00]/20">PROCESSING</span>
+</td>
+<td class="py-4 px-2 font-body-lg text-body-lg text-right">4</td>
+</tr>
+<tr class="border-b border-steel-gray/10 hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-2 font-label-caps text-label-caps">#BIK-455</td>
+<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Walk-in Customer</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-steel-gray">two_wheeler</span>
+<span class="font-body-md text-body-md">Bike</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="bg-[#E3FCEF] text-[#00875A] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#00875A]/20">COMPLETED</span>
+</td>
+<td class="py-4 px-2 font-body-lg text-body-lg text-right">2</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-4 px-2 font-label-caps text-label-caps">#ACT-882</td>
+<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Raj Traders</td>
+<td class="py-4 px-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-steel-gray">moped</span>
+<span class="font-body-md text-body-md">Activa</span>
+</div>
+</td>
+<td class="py-4 px-2">
+<span class="bg-[#FFEBE6] text-[#DE350B] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#DE350B]/20">PENDING PAY</span>
+</td>
+<td class="py-4 px-2 font-body-lg text-body-lg text-right">50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Quick Links & Image (4 cols) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- Quick Actions Panel -->
+<div class="bg-charcoal-black p-6 text-surface">
+<h2 class="font-headline-md text-headline-md mb-6 text-surface border-b-2 border-safety-orange inline-block pb-1">Quick Actions</h2>
+<div class="flex flex-col gap-4">
+<button class="bg-surface text-primary font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:bg-safety-orange transition-colors duration-300">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined group-hover:text-primary text-safety-orange transition-colors">add_circle</span>
+                                ADD NEW TYRE
+                            </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="bg-transparent border border-surface/30 text-surface font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:border-safety-orange transition-colors duration-300">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-surface-variant group-hover:text-safety-orange transition-colors">list_alt</span>
+                                VIEW ALL INQUIRIES
+                            </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="bg-transparent border border-surface/30 text-surface font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:border-safety-orange transition-colors duration-300">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-surface-variant group-hover:text-safety-orange transition-colors">summarize</span>
+                                GENERATE REPORT
+                            </span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Industrial Image Banner -->
+<div class="relative w-full h-64 overflow-hidden border-2 border-primary group">
+<!-- Image -->
+<img class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100" data-alt="A wide angle shot inside a massive, pristine industrial tyre warehouse. Towering black metal racks stretch to the ceiling, perfectly organized with rows of brand new, heavy-duty truck tyres. Sunlight streams in from large high windows, casting stark, dramatic shadows on the polished concrete floor, highlighting the deep tread patterns. The aesthetic is clean, modern, and highly organized, emphasizing scale, reliability, and automotive expertise with subtle safety orange accents on the shelving labels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByqDnbC1pkB38xDiddAsAHivnB_m-FcsOZFqBiZ9FBnSuIX7iHNdTsVApPg8xQvWXpW-lZZnvuCECD8qV54dl76iCjmOh46aXAN-LyHkRznh9yb_PS4XkbhsIi3NBXQfb4J1tH7e2DzKphEITEGuVqLS-fudYZ3ONXughgNdFdcBbofTYRCyJdqcQX6QCsr_dQYM-NmbhzIwj_a2urDNokKwnFrz8zTdLa7HswI41HRqqNw0ds2qJEPvbfbj1e4rK2wuO0e-gQn0et"/>
+<!-- Overlay text -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
+<span class="font-label-caps text-label-caps text-safety-orange mb-1">WAREHOUSE 01</span>
+<h3 class="font-headline-md text-headline-md text-white">Capacity at 85%</h3>
+<p class="font-body-md text-body-md text-surface-variant mt-2">Restock recommended for Heavy Duty segments.</p>
+</div>
+</div>
+<!-- System Status -->
+<div class="bg-surface-container-low p-4 level-1-border flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-[#00875A] animate-pulse"></div>
+<span class="font-body-md text-body-md text-steel-gray">System Status</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary">ONLINE</span>
+</div>
+</div>
+</div>
+
+{% endblock %}

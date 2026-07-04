@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Breadcrumbs -->
+<nav aria-label="Breadcrumb" class="flex text-sm text-on-surface-variant font-body-md mb-8 items-center gap-2">
+<a class="hover:text-safety-orange transition-colors flex items-center gap-1" href="#"><span class="material-symbols-outlined text-sm">home</span> Home</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<a class="hover:text-safety-orange transition-colors" href="#">Browse Tyres</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span aria-current="page" class="text-primary font-bold">Cars</span>
+</nav>
+<!-- Page Header -->
+<div class="mb-12 border-l-4 border-safety-orange pl-6">
+<h1 class="font-headline-display text-headline-lg-mobile md:text-headline-display text-primary mb-4 uppercase tracking-tight">Car &amp; SUV Tyres</h1>
+<p class="font-body-lg text-body-lg text-steel-gray max-w-2xl">
+                Premium high-performance tyres for passenger vehicles and SUVs. Available in wholesale quantities for dealers and retail for individual performance enthusiasts. Uncompromising grip and durability.
+            </p>
+</div>
+<!-- Toolbar / Filters -->
+<div class="bg-surface-container border border-steel-gray/20 rounded p-4 mb-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex gap-4 w-full md:w-auto">
+<div class="relative w-full md:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-steel-gray">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface border border-steel-gray/30 rounded focus:border-safety-orange focus:ring-1 focus:ring-safety-orange outline-none transition-all font-body-md text-primary" placeholder="Search models or sizes..." type="text"/>
+</div>
+<div class="relative w-full md:w-48 hidden md:block">
+<select class="w-full appearance-none pl-4 pr-10 py-2 bg-surface border border-steel-gray/30 rounded focus:border-safety-orange outline-none font-body-md text-primary cursor-pointer">
+<option value="">All Brands</option>
+<option value="mrf">MRF</option>
+<option value="apollo">Apollo</option>
+<option value="birla">Birla</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-steel-gray pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-sm font-label-caps text-steel-gray uppercase w-full md:w-auto justify-end">
+<span class="material-symbols-outlined text-lg">sort</span> Sort By:
+                <select class="bg-transparent font-bold text-primary outline-none cursor-pointer border-b border-steel-gray/30 pb-1">
+<option>Popularity</option>
+<option>Brand A-Z</option>
+</select>
+</div>
+</div>
+<!-- Product Grid (Bento/Card Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Product Card 1 -->
+<article class="bg-surface border border-steel-gray/20 rounded hover:cut-shadow transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-4 left-4 bg-tertiary text-on-tertiary text-xs font-label-caps px-2 py-1 z-10">MRF</div>
+<div class="h-64 bg-surface-container flex items-center justify-center p-6 relative">
+<img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed, professional studio shot of an MRF Perfinza car tyre against a stark white background. The intricate asymmetrical tread pattern is clearly visible, highlighted by crisp, cool-toned industrial lighting. The rubber texture looks premium and durable, emphasizing high-performance grip. The overall aesthetic is clean, technical, and modern, fitting an automotive dashboard interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbsKA9baV51xyuhfV6GjleVXaWdVss6QC3KOUIAJ6Qmz4Ehd76Ct_acNeZI-2ZEWgK4uJuGeivcVMI5MCxdZohkn0nczx8XSZwi90mVSyiA-ea1sh2adMIN0kD5ZeHk8luMbquOYKbr7M3PuX93l7Zc1DpejyWRgFi87gGyklc52VXsQrBwAMt-IyFb7f4hIX4Rv3vdTj3gtmrZ5gzs6Z5k-PzH7qOqX22DYRlXM8BZAHvHf_LLWjARkGebz1fxsNFCOVA51VjSSYr"/>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">MRF Perfinza</h2>
+<p class="font-body-md text-steel-gray mb-4">Luxury Performance Radial</p>
+<div class="mt-auto">
+<div class="mb-4">
+<span class="text-xs font-label-caps text-steel-gray uppercase block mb-1">Available Sizes</span>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">205/55 R16</span>
+<span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">225/45 R17</span>
+</div>
+</div>
+<button class="w-full bg-safety-orange text-primary font-bold py-3 px-4 rounded border-b-2 border-secondary btn-press transition-all flex items-center justify-center gap-2 uppercase tracking-wide text-sm cut-shadow-sm">
+<span class="material-symbols-outlined">request_quote</span>
+                            Get Wholesale Quote
+                        </button>
+</div>
+</div>
+</article>
+<!-- Product Card 2 -->
+<article class="bg-surface border border-steel-gray/20 rounded hover:cut-shadow transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-4 left-4 bg-tertiary text-on-tertiary text-xs font-label-caps px-2 py-1 z-10">APOLLO</div>
+<div class="h-64 bg-surface-container flex items-center justify-center p-6 relative">
+<img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed, professional studio shot of an Apollo Alnac 4G car tyre against a stark white background. The deep, directional tread grooves are sharply lit with cool, industrial lighting, showcasing the robust rubber compound designed for stability. The image is crisp, technical, and modern, perfectly suited for a high-end automotive e-commerce listing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOeiWyKW92wUIrmBttNcseVCpns-Bi1zGVIQUpLAvqmCI_5Ssw1sp4bESHLM7FZfNNMshOTYnV4q8RfVsOrEic4AmfZym2uRgDIi6iRxifrRTIjay9K9iIxFRn6CEdysmJ2ZgEHdFkQr5rYNGu3e69i_L49nZ3WG61jhaErMNldJq7jcfxPVXGDPzdada3xfu6uJbvXXt6D64hdsvKCTMj9hf0MkURc4nldpMgHed8wKrMjKppc-l--CIblZ3qVS-UJYtlWGaELKPz"/>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Apollo Alnac 4G</h2>
+<p class="font-body-md text-steel-gray mb-4">All-Season Durability</p>
+<div class="mt-auto">
+<div class="mb-4">
+<span class="text-xs font-label-caps text-steel-gray uppercase block mb-1">Available Sizes</span>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">185/65 R15</span>
+<span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">195/55 R16</span>
+<span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">+3 More</span>
+</div>
+</div>
+<button class="w-full bg-safety-orange text-primary font-bold py-3 px-4 rounded border-b-2 border-secondary btn-press transition-all flex items-center justify-center gap-2 uppercase tracking-wide text-sm cut-shadow-sm">
+<span class="material-symbols-outlined">request_quote</span>
+                            Get Wholesale Quote
+                        </button>
+</div>
+</div>
+</article>
+<!-- Product Card 3 -->
+<article class="bg-surface border border-steel-gray/20 rounded hover:cut-shadow transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-4 left-4 bg-tertiary text-on-tertiary text-xs font-label-caps px-2 py-1 z-10">BIRLA</div>
+<div class="h-64 bg-surface-container flex items-center justify-center p-6 relative">
+<img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" data-alt="A highly detailed, professional studio shot of a Birla car tyre against a stark white background. The sturdy, blocky tread pattern engineered for rough roads is highlighted by dramatic, high-contrast industrial lighting. The texture conveys immense durability and tough rubber construction. The aesthetic is clean, technical, and heavily automotive-focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRfby0K4XjDeCmQeaG-4pz839hJQLpYWu_ZJYWKMUyVNFbwfThbuho2RQqjzHJK97EKisbprnea3LZv83wsMYl4u6OcXgcQ34ZdKEfPYn1r1KLC6Z0vweUowh1oeZzfHojxFKvfYx7FcG_PyakiG8QLXesbV4p0Ixg7P6m56dLUhLq5VUmgf0BX54DCMqNwSu0OwF-7fps2ELbeURzeR4YENQjufLK06UfyKPDt9QZaeDajHMb88D-_l0GHOl8K6496TGLA2-Az4cZ"/>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Birla RoadMaxX</h2>
+<p class="font-body-md text-steel-gray mb-4">Tough Terrain Specialist</p>
+<div class="mt-auto">
+<div class="mb-4">
+<span class="text-xs font-label-caps text-steel-gray uppercase block mb-1">Available Sizes</span>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">215/60 R16</span>
+<span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">235/65 R17</span>
+</div>
+</div>
+<button class="w-full bg-safety-orange text-primary font-bold py-3 px-4 rounded border-b-2 border-secondary btn-press transition-all flex items-center justify-center gap-2 uppercase tracking-wide text-sm cut-shadow-sm">
+<span class="material-symbols-outlined">request_quote</span>
+                            Get Wholesale Quote
+                        </button>
+</div>
+</div>
+</article>
+</div>
+<!-- Load More -->
+<div class="mt-12 flex justify-center">
+<button class="bg-surface border-2 border-primary text-primary font-bold py-3 px-8 rounded hover:bg-primary hover:text-on-primary transition-colors font-label-caps uppercase tracking-wider flex items-center gap-2">
+                Load More Tyres <span class="material-symbols-outlined">arrow_downward</span>
+</button>
+</div>
+
+{% endblock %}

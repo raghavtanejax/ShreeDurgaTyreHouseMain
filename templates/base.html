@@ -1,0 +1,151 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>{% block title %}Shree Durga Tyre House - Delhi NCR's Largest Tyre Store{% endblock %}</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#868381",
+                        "steel-gray": "#4A4A4A",
+                        "on-tertiary-fixed": "#1c1b1a",
+                        "surface-container-low": "#f7f3f2",
+                        "surface": "#fdf8f8",
+                        "on-secondary-container": "#572000",
+                        "on-primary-container": "#858383",
+                        "on-background": "#1c1b1b",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#5f5e5e",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-variant": "#e5e2e1",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "tertiary-fixed-dim": "#cac6c3",
+                        "secondary-container": "#fe6b00",
+                        "inverse-on-surface": "#f4f0ef",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#ebe7e6",
+                        "on-error-container": "#93000a",
+                        "service-blue": "#0052CC",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "inverse-primary": "#c8c6c5",
+                        "tertiary": "#000000",
+                        "on-secondary-fixed": "#351000",
+                        "on-secondary": "#ffffff",
+                        "charcoal-black": "#121212",
+                        "error": "#ba1a1a",
+                        "hindi-toggle-bg": "#F4F4F4",
+                        "safety-orange": "#FF6B00",
+                        "background": "#fdf8f8",
+                        "tertiary-fixed": "#e6e1df",
+                        "outline": "#747878",
+                        "surface-container": "#f1edec",
+                        "surface-container-highest": "#e5e2e1",
+                        "primary-fixed": "#e5e2e1",
+                        "secondary": "#a04100",
+                        "on-primary-fixed-variant": "#474646",
+                        "surface-bright": "#fdf8f8",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#444748",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "primary-container": "#1c1b1b",
+                        "outline-variant": "#c4c7c7",
+                        "tertiary-container": "#1c1b1a",
+                        "inverse-surface": "#313030",
+                        "primary": "#000000",
+                        "surface-dim": "#ddd9d8",
+                        "secondary-fixed": "#ffdbcc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "section-gap": "80px",
+                        "margin-desktop": "64px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-display": ["Sora"],
+                        "body-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "hindi-standard": ["Hanken Grotesk"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        {% block extra_css %}{% endblock %}
+</style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+    {% for category, message in messages %}
+      <div class="p-4 mb-4 text-sm rounded-lg {{ 'bg-error-container text-on-error-container' if category == 'error' else 'bg-green-100 text-green-800' }}" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-charcoal-black border-b border-steel-gray/20 docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto h-20">
+<div class="flex items-center gap-4">
+<a href="{{ url_for('index') }}" class="text-headline-md font-headline-md font-extrabold text-tertiary dark:text-surface">Shree Durga Tyre House</a>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('categories') }}">Browse Tyres</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('truck_tyres') }}">Truck</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('truck_tyres') }}">Crane</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('bike_tyres') }}">Bike</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('car_tyres') }}">Car & SUV</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('contact') }}">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="hidden lg:block text-safety-orange font-body-lg text-body-lg font-bold">Call: +91 98375 64555</span>
+{% if current_user.is_authenticated %}
+    <a href="{{ url_for('admin_dashboard') }}" class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors duration-200">Admin</a>
+    <a href="{{ url_for('logout') }}" class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors duration-200">Logout</a>
+{% endif %}
+</div>
+</div>
+</header>
+<main class="flex-grow">
+{% block content %}
+{% endblock %}
+</main>
+<footer class="bg-charcoal-black text-surface py-12 border-t-4 border-safety-orange">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<p class="font-body-md text-body-md text-surface-variant">© {{ year }} Shree Durga Tyre House. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
