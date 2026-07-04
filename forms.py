@@ -15,7 +15,7 @@ class TyreForm(FlaskForm):
     price = FloatField('Price (₹)', validators=[DataRequired()])
     stock = IntegerField('Stock Level', validators=[DataRequired()])
     sku = StringField('SKU', validators=[DataRequired(), Length(max=50)])
-    image = FileField('Tyre Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'webp'], 'Images only!')])
+    image = FileField('Tyre Image', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'heic', 'heif', 'bmp', 'tiff'], 'Images only!')])
     submit = SubmitField('Save Tyre')
 
 class QuoteForm(FlaskForm):
