@@ -2,8 +2,8 @@ import os
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
-from models import db, User, Tyre
-from forms import LoginForm, TyreForm
+from models import db, User, Tyre, QuoteRequest
+from forms import LoginForm, TyreForm, QuoteForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
 
@@ -53,9 +53,21 @@ def car_tyres():
 def truck_tyres():
     return render_template('5_truck_crane_tyres.html')
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    return render_template('8_contact_us.html')
+    form = QuoteForm()
+    if form.validate_on_submit():
+        quote = QuoteRequest(
+            full_name=form.full_name.data,
+            phone=form.phone.data,
+            vehicle_type=form.vehicle_type.data,
+            message=form.message.data
+        )
+        db.session.add(quote)
+        db.session.commit()
+        flash('Your request has been sent! We will contact you shortly.', 'success')
+        return redirect(url_for('contact'))
+    return render_template('8_contact_us.html', form=form)
 
 # AUTHENTICATION ROUTES
 
@@ -163,6 +175,12 @@ def edit_tyre(id):
             db.session.rollback()
             flash('SKU already exists!', 'error')
     return redirect(url_for('inventory'))
+
+@app.route('/admin/quotes')
+@login_required
+def admin_quotes():
+    quotes = QuoteRequest.query.order_by(QuoteRequest.date_submitted.desc()).all()
+    return render_template('admin_quotes.html', quotes=quotes)
 
 @app.route('/admin/settings')
 @login_required

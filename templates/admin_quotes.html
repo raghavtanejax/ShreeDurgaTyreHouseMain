@@ -1,0 +1,44 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-8 gap-4">
+<div>
+<h1 class="font-headline-display text-headline-display text-primary mb-2">Quote Requests</h1>
+<p class="font-body-lg text-body-lg text-steel-gray">View and manage incoming customer inquiries.</p>
+</div>
+</div>
+
+<div class="space-y-4">
+{% if quotes %}
+    {% for quote in quotes %}
+    <div class="bg-surface border border-steel-gray/20 rounded-lg p-6 hover:shadow-[4px_4px_0_0_#000000] transition-shadow duration-200">
+        <div class="flex justify-between items-start mb-4">
+            <div>
+                <h3 class="font-headline-md text-tertiary">{{ quote.full_name }}</h3>
+                <p class="text-steel-gray text-sm">{{ quote.date_submitted.strftime('%B %d, %Y - %H:%M') }}</p>
+            </div>
+            <span class="px-3 py-1 bg-surface-container-low text-service-blue border border-service-blue/30 rounded-full font-body-md text-sm font-bold">
+                {{ quote.vehicle_type }}
+            </span>
+        </div>
+        
+        <div class="mb-4">
+            <p class="text-on-surface-variant bg-surface-container-lowest p-4 border border-steel-gray/10 rounded">{{ quote.message }}</p>
+        </div>
+        
+        <div class="flex justify-start border-t border-steel-gray/10 pt-4">
+            <a href="tel:{{ quote.phone }}" class="flex items-center gap-2 text-safety-orange font-bold hover:text-orange-500">
+                <span class="material-symbols-outlined">call</span> {{ quote.phone }}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="text-center p-8 text-steel-gray bg-surface border border-steel-gray/20 rounded-lg">
+        No quote requests received yet.
+    </div>
+{% endif %}
+</div>
+
+{% endblock %}

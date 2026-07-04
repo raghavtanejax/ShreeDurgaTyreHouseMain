@@ -55,28 +55,27 @@
 <!-- Contact Form -->
 <div class="md:col-span-8 bg-surface border-t-4 border-safety-orange p-6 md:p-8 rounded shadow-sm">
 <h3 class="font-headline-md text-headline-md text-tertiary mb-6">Send an Inquiry</h3>
-<form class="space-y-6">
+<form method="POST" action="{{ url_for('contact') }}" class="space-y-6">
+    {{ form.hidden_tag() }}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="space-y-2">
-<label class="font-label-caps text-label-caps text-tertiary block">FULL NAME</label>
-<input class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary" placeholder="John Doe" type="text">
+{{ form.full_name.label(class="font-label-caps text-label-caps text-tertiary block") }}
+{{ form.full_name(class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary", placeholder="John Doe") }}
 </div>
 <div class="space-y-2">
-<label class="font-label-caps text-label-caps text-tertiary block">PHONE NUMBER</label>
-<input class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary" placeholder="+91 00000 00000" type="tel">
+{{ form.phone.label(class="font-label-caps text-label-caps text-tertiary block") }}
+{{ form.phone(class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary", placeholder="+91 00000 00000") }}
 </div>
 </div>
 <div class="space-y-2">
-<label class="font-label-caps text-label-caps text-tertiary block">VEHICLE / TYRE TYPE</label>
-<select class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary"><option>MRF</option><option>Apollo</option><option>Birla</option><option>Other</option></select>
+{{ form.vehicle_type.label(class="font-label-caps text-label-caps text-tertiary block") }}
+{{ form.vehicle_type(class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary") }}
 </div>
 <div class="space-y-2">
-<label class="font-label-caps text-label-caps text-tertiary block">MESSAGE</label>
-<textarea class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary" placeholder="Tell us which tyres you are looking for..." rows="4"></textarea>
+{{ form.message.label(class="font-label-caps text-label-caps text-tertiary block") }}
+{{ form.message(class="w-full bg-background border border-steel-gray p-3 rounded input-industrial font-body-md text-tertiary", placeholder="Tell us which tyres you are looking for...") }}
 </div>
-<button class="w-full md:w-auto bg-safety-orange text-primary font-bold py-3 px-8 rounded btn-tactile hover:bg-orange-500 transition-colors" type="submit">
-                            Send Request
-                        </button>
+{{ form.submit(class="w-full md:w-auto bg-safety-orange text-primary font-bold py-3 px-8 rounded btn-tactile hover:bg-orange-500 transition-colors") }}
 </form>
 </div>
 </div>

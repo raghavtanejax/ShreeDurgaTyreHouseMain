@@ -24,6 +24,15 @@ class Tyre(db.Model):
     def stock_status(self):
         if self.stock <= 0:
             return "Out of Stock"
-        elif self.stock < 10:
+        elif self.stock <= 10:
             return "Low Stock"
-        return "In Stock"
+        else:
+            return "In Stock"
+
+class QuoteRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String(150), nullable=False)
+    phone = db.Column(db.String(50), nullable=False)
+    vehicle_type = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    date_submitted = db.Column(db.DateTime, default=datetime.utcnow)

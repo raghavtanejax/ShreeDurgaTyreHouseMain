@@ -17,3 +17,10 @@ class TyreForm(FlaskForm):
     sku = StringField('SKU', validators=[DataRequired(), Length(max=50)])
     image = FileField('Tyre Image', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'webp'], 'Images only!')])
     submit = SubmitField('Save Tyre')
+
+class QuoteForm(FlaskForm):
+    full_name = StringField('FULL NAME', validators=[DataRequired(), Length(max=150)])
+    phone = StringField('PHONE NUMBER', validators=[DataRequired(), Length(max=50)])
+    vehicle_type = SelectField('VEHICLE / TYRE TYPE', choices=[('MRF', 'MRF'), ('Apollo', 'Apollo'), ('Birla', 'Birla'), ('Other', 'Other')], validators=[DataRequired()])
+    message = StringField('MESSAGE', validators=[DataRequired()])
+    submit = SubmitField('Send Request')
