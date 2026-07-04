@@ -23,6 +23,7 @@ class QuoteForm(FlaskForm):
     phone = StringField('PHONE NUMBER', validators=[DataRequired(), Length(max=50)])
     vehicle_type = SelectField('VEHICLE / TYRE TYPE', choices=[('MRF', 'MRF'), ('Apollo', 'Apollo'), ('Birla', 'Birla'), ('Other', 'Other')], validators=[DataRequired()])
     message = StringField('MESSAGE', validators=[DataRequired()])
+    submit = SubmitField('Send Request')
 
 class SettingsForm(FlaskForm):
     primary_contact = StringField('Primary Contact', validators=[DataRequired(), Length(max=50)])
