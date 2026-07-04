@@ -13,7 +13,18 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'shreedurgatyrehouse_super_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+
+if os.environ.get('VERCEL') == '1':
+    import shutil
+    db_path = '/tmp/app.db'
+    src_db = os.path.join(app.instance_path, 'app.db')
+    if not os.path.exists(db_path) and os.path.exists(src_db):
+        shutil.copyfile(src_db, db_path)
+    # Absolute path requires four slashes
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+    
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
