@@ -149,7 +149,10 @@ def inventory():
                 upload_result = cloudinary.uploader.upload(form.image.data)
                 filename = upload_result.get('secure_url')
             except Exception as e:
-                flash(f'Cloudinary Upload Error: {str(e)}', 'error')
+                error_msg = str(e)
+                if 'API key' in error_msg:
+                    error_msg = "Unknown API Key. Please check your Vercel Environment Variables."
+                flash(f'Cloudinary Upload Error: {error_msg}', 'error')
                 return redirect(url_for('inventory'))
                 
         tyre = Tyre(
@@ -209,7 +212,10 @@ def edit_tyre(id):
                 upload_result = cloudinary.uploader.upload(form.image.data)
                 tyre.image_filename = upload_result.get('secure_url')
             except Exception as e:
-                flash(f'Cloudinary Upload Error: {str(e)}', 'error')
+                error_msg = str(e)
+                if 'API key' in error_msg:
+                    error_msg = "Unknown API Key. Please check your Vercel Environment Variables."
+                flash(f'Cloudinary Upload Error: {error_msg}', 'error')
                 return redirect(url_for('inventory'))
         try:
             db.session.commit()
