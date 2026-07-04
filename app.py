@@ -145,8 +145,12 @@ def inventory():
         filename = None
         if form.image.data and form.image.data.filename:
             # Upload to Cloudinary
-            upload_result = cloudinary.uploader.upload(form.image.data)
-            filename = upload_result.get('secure_url')
+            try:
+                upload_result = cloudinary.uploader.upload(form.image.data)
+                filename = upload_result.get('secure_url')
+            except Exception as e:
+                flash(f'Cloudinary Upload Error: {str(e)}', 'error')
+                return redirect(url_for('inventory'))
                 
         tyre = Tyre(
             model=form.model.data,
@@ -200,11 +204,13 @@ def edit_tyre(id):
         tyre.price = form.price.data
         tyre.stock = form.stock.data
         tyre.sku = form.sku.data
-        if form.image.data:
-            filename = secure_filename(form.image.data.filename)
-            if filename:
-                form.image.data.save(os.path.join(UPLOAD_FOLDER, filename))
-                tyre.image_filename = filename
+        if form.image.data and form.image.data.filename:
+            try:
+                upload_result = cloudinary.uploader.upload(form.image.data)
+                tyre.image_filename = upload_result.get('secure_url')
+            except Exception as e:
+                flash(f'Cloudinary Upload Error: {str(e)}', 'error')
+                return redirect(url_for('inventory'))
         try:
             db.session.commit()
             flash('Tyre updated successfully!', 'success')
