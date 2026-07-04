@@ -14,14 +14,12 @@ if not os.path.exists(UPLOAD_FOLDER):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'shreedurgatyrehouse_super_secret_key'
 
-if os.environ.get('VERCEL') == '1':
-    import shutil
-    db_path = '/tmp/app.db'
-    src_db = os.path.join(app.instance_path, 'app.db')
-    if not os.path.exists(db_path) and os.path.exists(src_db):
-        shutil.copyfile(src_db, db_path)
-    # Absolute path requires four slashes
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+if os.environ.get('DATABASE_URL'):
+    # Neon provides 'postgres://', but SQLAlchemy requires 'postgresql://'
+    db_url = os.environ.get('DATABASE_URL')
+    if db_url.startswith("postgres://"):
+        db_url = db_url.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
     
