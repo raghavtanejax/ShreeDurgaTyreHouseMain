@@ -133,12 +133,54 @@
 <div class="flex items-center gap-4">
 <span class="hidden lg:block text-safety-orange font-body-lg text-body-lg font-bold">Call: {{ site_settings.primary_contact }}</span>
 {% if current_user.is_authenticated %}
-    <a href="{{ url_for('admin_dashboard') }}" class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors duration-200">Admin</a>
-    <a href="{{ url_for('logout') }}" class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors duration-200">Logout</a>
+    <a href="{{ url_for('admin_dashboard') }}" class="hidden md:block font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors duration-200">Admin</a>
+    <a href="{{ url_for('logout') }}" class="hidden md:block font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors duration-200">Logout</a>
 {% endif %}
+<!-- Hamburger Icon -->
+<button id="mobile-menu-btn" aria-label="Toggle Navigation" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none z-50">
+  <span class="block w-6 h-0.5 bg-steel-gray transition-transform duration-300"></span>
+  <span class="block w-6 h-0.5 bg-steel-gray transition-opacity duration-300"></span>
+  <span class="block w-6 h-0.5 bg-steel-gray transition-transform duration-300"></span>
+</button>
 </div>
+</div>
+<!-- Mobile Menu Dropdown -->
+<div id="mobile-menu" class="md:hidden absolute top-20 left-0 w-full bg-surface dark:bg-charcoal-black border-b border-steel-gray/20 transition-all duration-300 overflow-hidden max-h-0 opacity-0 shadow-lg">
+  <nav class="flex flex-col px-margin-mobile py-4 space-y-4">
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('categories') }}">Browse Tyres</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('truck_tyres') }}">Truck</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('truck_tyres') }}">Crane</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('bike_tyres') }}">Bike</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('car_tyres') }}">Car & SUV</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('contact') }}">Contact</a>
+    {% if current_user.is_authenticated %}
+    <hr class="border-steel-gray/20">
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('admin_dashboard') }}">Admin</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+  </nav>
 </div>
 </header>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const spans = btn.querySelectorAll('span');
+
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('max-h-0');
+      menu.classList.toggle('opacity-0');
+      menu.classList.toggle('max-h-96');
+      menu.classList.toggle('opacity-100');
+      
+      spans[0].classList.toggle('translate-y-2');
+      spans[0].classList.toggle('rotate-45');
+      spans[1].classList.toggle('opacity-0');
+      spans[2].classList.toggle('-translate-y-2');
+      spans[2].classList.toggle('-rotate-45');
+    });
+  });
+</script>
 <main class="flex-grow">
 {% block content %}
 {% endblock %}

@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
+{% block extra_css %}
+    @keyframes antiGravity {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0); }
+    }
+    .anti-gravity-card {
+        animation: antiGravity 4s ease-in-out infinite;
+    }
+{% endblock %}
 {% block content %}
 
 <!-- Hero Section -->
-<section class="relative bg-surface-container py-section-gap overflow-hidden border-b border-steel-gray/20">
-<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
-<div class="space-y-6 z-10">
+<section class="relative bg-surface-container pt-32 pb-section-gap overflow-hidden border-b border-steel-gray/20">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+<div class="space-y-8 z-10">
 <h1 class="font-headline-display text-headline-display text-primary">Saharanpur's Largest Wholesale &amp; Retail Tyre Store</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant">As the premier destination for all your tyre and automotive needs, Shree Durga Tyre House offers an unparalleled shopping experience. Boasting a massive facility, we proudly showcase the largest inventory of MRF, Apollo, and Birla tyres for trucks, cranes, bikes, and Activas.</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-loose">As the premier destination for all your tyre and automotive needs, Shree Durga Tyre House offers an unparalleled shopping experience. Boasting a massive facility, we proudly showcase the largest inventory of MRF, Apollo, and Birla tyres for trucks, cranes, bikes, and Activas.</p>
 <div class="flex flex-col sm:flex-row gap-4 pt-4">
 <button onclick="window.location.href='{{ url_for('contact') }}'" class="bg-safety-orange text-tertiary font-body-lg text-body-lg font-bold py-3 px-8 rounded-DEFAULT border-b-2 border-secondary hover:bg-secondary-container transition-colors shadow-[0_4px_0_0_#000000] active:translate-y-1 active:shadow-none flex items-center justify-center gap-2">
                             Get a Quote
@@ -25,7 +35,7 @@
 </div>
 </div>
 <div class="relative z-10 flex justify-center lg:justify-end">
-<div class="relative w-full max-w-md aspect-square rounded-xl overflow-hidden border border-steel-gray/20 shadow-[4px_4px_0_0_#4A4A4A] bg-surface">
+<div class="relative w-full max-w-md aspect-square rounded-xl overflow-hidden border border-steel-gray/20 shadow-[4px_4px_0_0_#4A4A4A] bg-surface anti-gravity-card">
 <img alt="Shree Durga Tyre House Logo" class="object-cover w-full h-full p-8" data-alt="Bold industrial logo for an automotive tyre shop featuring high contrast design and professional typography suitable for a premium tyre dealership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE4TZXminkgS9xrL3S7uxiYqaeZrqVLX3M9aG1F61x_yq3-KB2PxUqHbD0Nm1yW0Vwbad8IVpu8S-kxdzLqjMrMP-5G21G-xmimY69-dcgKxuEBJ_l24g-4CnZLxG4OtfYwSNNsriJD0v4ZK93EbspD8vQJXE6K3DXMZzJbQvttBmVfsLEnxHuI6uX1HorbFcmTcmJ8HUMkH-YANkU-VQcn0zJu4DVERHzgE3lotqyla8Fi52YMp08gRyNcwj6i1tdtUZVS_Ecu0Fk">
 </div>
 </div>

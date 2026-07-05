@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, Response
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
 from models import db, User, Tyre, QuoteRequest, SiteSettings
@@ -53,6 +53,34 @@ def inject_now():
     return {'year': datetime.now().year, 'site_settings': settings}
 
 # PUBLIC ROUTES
+
+@app.route('/sitemap.xml', methods=['GET'])
+def sitemap():
+    base_url = request.url_root.rstrip('/')
+    
+    # Structured data allows specific SEO tuning per route
+    pages = [
+        {'loc': '/', 'changefreq': 'weekly', 'priority': '1.0'},
+        {'loc': '/categories', 'changefreq': 'weekly', 'priority': '0.8'},
+        {'loc': '/category/bike-scooter', 'changefreq': 'weekly', 'priority': '0.8'},
+        {'loc': '/category/car-suv', 'changefreq': 'weekly', 'priority': '0.8'},
+        {'loc': '/category/truck-crane', 'changefreq': 'weekly', 'priority': '0.8'},
+        {'loc': '/contact', 'changefreq': 'monthly', 'priority': '0.5'}
+    ]
+    
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    
+    for page in pages:
+        xml += '  <url>\n'
+        xml += f"    <loc>{base_url}{page['loc']}</loc>\n"
+        xml += f"    <changefreq>{page['changefreq']}</changefreq>\n"
+        xml += f"    <priority>{page['priority']}</priority>\n"
+        xml += '  </url>\n'
+        
+    xml += '</urlset>'
+    
+    return Response(xml, mimetype='application/xml')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
