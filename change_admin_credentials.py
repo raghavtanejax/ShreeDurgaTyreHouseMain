@@ -24,7 +24,7 @@ def update_admin_credentials(old_username, new_username, new_password):
 if __name__ == '__main__':
     # REPLACE THESE VALUES WITH YOUR DESIRED LOGIN ID AND PASSWORD
     CURRENT_USERNAME = 'OwnerAshu5'
-    NEW_USERNAME = 'OwnerAshu5'
-    NEW_PASSWORD = 'Prayag5@Sejal!*'
+    NEW_USERNAME = 'ASHUTOSH'
+    NEW_PASSWORD = 'Ashu@1979'
     
     update_admin_credentials(CURRENT_USERNAME, NEW_USERNAME, NEW_PASSWORD)
