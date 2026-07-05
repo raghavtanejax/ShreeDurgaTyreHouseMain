@@ -1,0 +1,65 @@
+{% extends 'admin_base.html' %}
+{% block title %}Edit Dispatch #{{ dispatch.id }} - Shree Durga Tyre House{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-end border-b border-steel-gray/20 pb-4 mb-8">
+    <div>
+        <a href="{{ url_for('admin_dispatch') }}" class="font-label-caps text-label-caps text-safety-orange hover:underline flex items-center gap-1 mb-2">
+            <span class="material-symbols-outlined text-[16px]">arrow_back</span> BACK TO DISPATCHES
+        </a>
+        <h1 class="text-headline-lg font-headline-lg text-tertiary">Edit Dispatch #{{ dispatch.id }}</h1>
+        <p class="text-body-md text-steel-gray mt-1">Update customer, items, or payment details</p>
+    </div>
+</div>
+
+<div class="max-w-3xl mx-auto">
+    <div class="bg-surface border border-steel-gray/20 rounded p-6 md:p-8 shadow-sm">
+        <form method="POST" action="{{ url_for('edit_dispatch', dispatch_id=dispatch.id) }}" class="flex flex-col gap-6">
+            {{ form.hidden_tag() }}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    {{ form.customer_name.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.customer_name(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-3 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+                </div>
+                
+                <div>
+                    {{ form.phone.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.phone(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-3 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+                </div>
+            </div>
+            
+            <div>
+                {{ form.destination.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                {{ form.destination(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-3 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+            </div>
+            
+            <div>
+                {{ form.tyre_details.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                {{ form.tyre_details(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-3 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    {{ form.total_amount.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.total_amount(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-3 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors", type="number", step="0.01") }}
+                </div>
+                <div>
+                    {{ form.amount_received.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.amount_received(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-3 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors", type="number", step="0.01") }}
+                </div>
+            </div>
+            
+            <div>
+                {{ form.status.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                {{ form.status(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-3 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+            </div>
+            
+            <div class="pt-6 border-t border-steel-gray/10 flex gap-4">
+                {{ form.submit(class="flex-1 bg-safety-orange text-primary font-bold py-3 px-4 rounded cursor-pointer hover:bg-secondary transition-colors uppercase tracking-wide", value="Save Changes") }}
+                <a href="{{ url_for('admin_dispatch') }}" class="flex-1 border border-steel-gray text-steel-gray font-bold py-3 px-4 rounded text-center hover:bg-surface-container-low transition-colors uppercase tracking-wide">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

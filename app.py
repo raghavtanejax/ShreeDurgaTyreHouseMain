@@ -333,5 +333,35 @@ def update_dispatch_status(dispatch_id):
         flash(f'Status for dispatch #{dispatch_id} updated to {new_status}.', 'success')
     return redirect(url_for('admin_dispatch'))
 
+@app.route('/admin/dispatch/edit/<int:dispatch_id>', methods=['GET', 'POST'])
+@login_required
+def edit_dispatch(dispatch_id):
+    dispatch = DispatchActivity.query.get_or_404(dispatch_id)
+    form = DispatchForm(obj=dispatch)
+    
+    if form.validate_on_submit():
+        dispatch.customer_name = form.customer_name.data
+        dispatch.phone = form.phone.data
+        dispatch.destination = form.destination.data
+        dispatch.tyre_details = form.tyre_details.data
+        dispatch.total_amount = form.total_amount.data if form.total_amount.data else 0.0
+        dispatch.amount_received = form.amount_received.data if form.amount_received.data else 0.0
+        dispatch.status = form.status.data
+        
+        db.session.commit()
+        flash('Dispatch activity updated successfully.', 'success')
+        return redirect(url_for('admin_dispatch'))
+        
+    return render_template('11_admin_dispatch_edit.html', form=form, dispatch=dispatch)
+
+@app.route('/admin/dispatch/delete/<int:dispatch_id>', methods=['POST'])
+@login_required
+def delete_dispatch(dispatch_id):
+    dispatch = DispatchActivity.query.get_or_404(dispatch_id)
+    db.session.delete(dispatch)
+    db.session.commit()
+    flash('Dispatch record deleted successfully.', 'success')
+    return redirect(url_for('admin_dispatch'))
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
