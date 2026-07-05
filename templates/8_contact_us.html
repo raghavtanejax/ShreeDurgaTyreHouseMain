@@ -22,7 +22,7 @@
 <div class="md:col-span-4 space-y-8">
 <div>
 <h3 class="font-headline-md text-headline-md text-tertiary mb-2">Visit Our Store</h3>
-<p class="font-body-md text-body-md text-on-surface-variant flex items-start gap-2"><span class="material-symbols-outlined text-safety-orange mt-1">location_on</span>Shop no. 35, opposite HP petrol pump,<br>Ambala road gurunanak market, saharanpur , Uttar Pradesh , India<a href="https://maps.google.com/?q=Shree+Durga+Tyre+House+Saharanpur" target="_blank" class="text-safety-orange hover:text-orange-500 font-bold text-sm flex items-center gap-1 ml-2 mt-1 transition-colors"><span class="material-symbols-outlined text-sm">open_in_new</span>View on Maps</a></p>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-start gap-2"><span class="material-symbols-outlined text-safety-orange mt-1">location_on</span>{{ settings.physical_address }}<a href="{{ settings.google_maps_url }}" target="_blank" class="text-safety-orange hover:text-orange-500 font-bold text-sm flex items-center gap-1 ml-2 mt-1 transition-colors"><span class="material-symbols-outlined text-sm">open_in_new</span>View on Maps</a></p>
 </div>
 <div class="space-y-4">
 <h3 class="font-headline-md text-headline-md text-tertiary">Direct Lines</h3>
@@ -33,7 +33,7 @@
 <p class="font-bold text-tertiary">Ashutosh Batra</p>
 <p class="text-on-surface-variant text-sm">Owner</p>
 </div>
-<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:+910000000000">
+<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:{{ settings.primary_contact|replace(' ', '') }}">
 <span class="material-symbols-outlined">call</span>
 </a>
 </div>
@@ -45,7 +45,7 @@
 <p class="font-bold text-tertiary">Aman</p>
 
 </div>
-<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:+910000000000">
+<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:{{ settings.secondary_contact|replace(' ', '') }}">
 <span class="material-symbols-outlined">call</span>
 </a>
 </div>

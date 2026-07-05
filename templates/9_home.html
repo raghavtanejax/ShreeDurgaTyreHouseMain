@@ -101,7 +101,7 @@
 <h3 class="font-headline-md text-headline-md text-primary mb-4 border-b border-steel-gray/10 pb-2">Location</h3>
 <div class="flex items-start gap-4">
 <span class="material-symbols-outlined text-safety-orange mt-1">location_on</span>
-<p class="font-body-md text-body-md text-on-background">Shop no. 35, opposite HP petrol pump,<br>Ambala road gurunanak market, saharanpur , Uttar Pradesh , India</p>
+<p class="font-body-md text-body-md text-on-background">{{ settings.physical_address }}</p>
 </div>
 </div>
 <div class="bg-surface border border-steel-gray/20 p-6 rounded-lg shadow-[4px_4px_0_0_#4A4A4A]">
@@ -110,15 +110,15 @@
 <div class="flex items-center gap-4">
 <span class="material-symbols-outlined text-safety-orange">phone_in_talk</span>
 <div>
-<p class="font-label-caps text-steel-gray">Ashutosh Batra</p>
-<p class="font-body-lg text-body-lg font-bold text-primary">{{ site_settings.primary_contact }}</p>
+<p class="font-label-caps text-steel-gray">Primary</p>
+<p class="font-body-lg text-body-lg font-bold text-primary">{{ settings.primary_contact }}</p>
 </div>
 </div>
 <div class="flex items-center gap-4">
 <span class="material-symbols-outlined text-safety-orange">phone_in_talk</span>
 <div>
-<p class="font-label-caps text-steel-gray">Aman</p>
-<p class="font-body-lg text-body-lg font-bold text-primary">7906277912</p>
+<p class="font-label-caps text-steel-gray">Secondary</p>
+<p class="font-body-lg text-body-lg font-bold text-primary">{{ settings.secondary_contact }}</p>
 </div>
 </div>
 </div>

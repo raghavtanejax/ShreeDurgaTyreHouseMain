@@ -22,6 +22,17 @@ cloudinary.config(
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'shreedurgatyrehouse_super_secret_key'
 
+@app.context_processor
+def inject_site_settings():
+    from models import SiteSettings
+    settings = SiteSettings.query.first()
+    # Create default if not exists
+    if not settings:
+        settings = SiteSettings()
+        db.session.add(settings)
+        db.session.commit()
+    return dict(settings=settings)
+
 if os.environ.get('DATABASE_URL'):
     # Neon provides 'postgres://', but SQLAlchemy requires 'postgresql://'
     db_url = os.environ.get('DATABASE_URL')
