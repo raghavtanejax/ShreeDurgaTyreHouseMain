@@ -104,15 +104,18 @@ def categories():
 
 @app.route('/category/bike-scooter')
 def bike_tyres():
-    return render_template('2_bike_scooter_tyres.html')
+    tyres = Tyre.query.filter_by(category='Bike & Scooter').all()
+    return render_template('2_bike_scooter_tyres.html', tyres=tyres)
 
 @app.route('/category/car-suv')
 def car_tyres():
-    return render_template('7_car_suv_tyres.html')
+    tyres = Tyre.query.filter_by(category='Car & SUV').all()
+    return render_template('7_car_suv_tyres.html', tyres=tyres)
 
 @app.route('/category/truck-crane')
 def truck_tyres():
-    return render_template('5_truck_crane_tyres.html')
+    tyres = Tyre.query.filter_by(category='Truck & Crane').all()
+    return render_template('5_truck_crane_tyres.html', tyres=tyres)
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
