@@ -101,7 +101,15 @@
 <h3 class="font-headline-md text-headline-md text-primary mb-4 border-b border-steel-gray/10 pb-2">Location</h3>
 <div class="flex items-start gap-4">
 <span class="material-symbols-outlined text-safety-orange mt-1">location_on</span>
-<p class="font-body-md text-body-md text-on-background">{{ settings.physical_address }}</p>
+<div>
+<p class="font-body-md text-body-md text-on-background mb-2">{{ settings.physical_address }}</p>
+{% if settings.google_maps_url %}
+<a href="{{ settings.google_maps_url }}" target="_blank" class="inline-flex items-center gap-1 text-safety-orange hover:text-orange-500 font-bold text-sm transition-colors">
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+View on Maps
+</a>
+{% endif %}
+</div>
 </div>
 </div>
 <div class="bg-surface border border-steel-gray/20 p-6 rounded-lg shadow-[4px_4px_0_0_#4A4A4A]">
