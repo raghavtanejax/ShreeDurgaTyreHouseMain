@@ -1,6 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime, timedelta
+
+def get_ist_time():
+    return datetime.utcnow() + timedelta(hours=5, minutes=30)
 
 db = SQLAlchemy()
 
@@ -18,7 +21,7 @@ class Tyre(db.Model):
     stock = db.Column(db.Integer, default=0)
     sku = db.Column(db.String(50), unique=True, nullable=False)
     image_filename = db.Column(db.String(255), nullable=True)
-    date_added = db.Column(db.DateTime, default=datetime.utcnow)
+    date_added = db.Column(db.DateTime, default=get_ist_time)
 
     @property
     def stock_status(self):
@@ -35,7 +38,7 @@ class QuoteRequest(db.Model):
     phone = db.Column(db.String(50), nullable=False)
     vehicle_type = db.Column(db.String(100), nullable=False)
     message = db.Column(db.Text, nullable=False)
-    date_submitted = db.Column(db.DateTime, default=datetime.utcnow)
+    date_submitted = db.Column(db.DateTime, default=get_ist_time)
 
 class SiteSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,7 +57,7 @@ class DispatchActivity(db.Model):
     total_amount = db.Column(db.Float, default=0.0)
     amount_received = db.Column(db.Float, default=0.0)
     status = db.Column(db.String(50), default="Pending") # Pending, Dispatched, Delivered
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    date_created = db.Column(db.DateTime, default=get_ist_time)
 
     @property
     def amount_left(self):
