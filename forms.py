@@ -38,5 +38,7 @@ class DispatchForm(FlaskForm):
     phone = StringField('Phone Number', validators=[DataRequired(), Length(max=50)])
     destination = StringField('Destination / Address', validators=[DataRequired(), Length(max=255)])
     tyre_details = StringField('Tyres Sent (e.g. 2x MRF ZLX)', validators=[DataRequired()])
+    total_amount = FloatField('Total Price (₹)', default=0.0)
+    amount_received = FloatField('Amount Received (₹)', default=0.0)
     status = SelectField('Status', choices=[('Pending', 'Pending'), ('Dispatched', 'Dispatched'), ('Delivered', 'Delivered')], default='Pending')
     submit = SubmitField('Record Dispatch')

@@ -166,7 +166,18 @@ def admin_dashboard():
     total_inventory = Tyre.query.count()
     total_stock = sum([t.stock for t in Tyre.query.all()])
     low_stock = Tyre.query.filter(Tyre.stock > 0, Tyre.stock < 10).count()
-    return render_template('1_admin_dashboard.html', total_inventory=total_inventory, total_stock=total_stock, low_stock=low_stock)
+    
+    # Dispatch Activity Stats
+    today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+    todays_dispatches_count = DispatchActivity.query.filter(DispatchActivity.date_created >= today_start).count()
+    recent_dispatches = DispatchActivity.query.order_by(DispatchActivity.date_created.desc()).limit(5).all()
+    
+    return render_template('1_admin_dashboard.html', 
+                           total_inventory=total_inventory, 
+                           total_stock=total_stock, 
+                           low_stock=low_stock,
+                           todays_dispatches_count=todays_dispatches_count,
+                           recent_dispatches=recent_dispatches)
 
 @app.route('/admin/inventory', methods=['GET', 'POST'])
 @login_required
@@ -299,6 +310,8 @@ def admin_dispatch():
             phone=form.phone.data,
             destination=form.destination.data,
             tyre_details=form.tyre_details.data,
+            total_amount=form.total_amount.data if form.total_amount.data else 0.0,
+            amount_received=form.amount_received.data if form.amount_received.data else 0.0,
             status=form.status.data
         )
         db.session.add(dispatch)

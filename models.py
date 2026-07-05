@@ -51,6 +51,12 @@ class DispatchActivity(db.Model):
     phone = db.Column(db.String(50), nullable=False)
     destination = db.Column(db.String(255), nullable=False)
     tyre_details = db.Column(db.Text, nullable=False)
+    total_amount = db.Column(db.Float, default=0.0)
+    amount_received = db.Column(db.Float, default=0.0)
     status = db.Column(db.String(50), default="Pending") # Pending, Dispatched, Delivered
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    @property
+    def amount_left(self):
+        return max(0.0, self.total_amount - self.amount_received)
 

@@ -62,8 +62,8 @@
 <span class="material-symbols-outlined text-steel-gray">local_shipping</span>
 </div>
 <div class="flex items-baseline gap-3">
-<span class="font-headline-display text-headline-display text-primary">12</span>
-<span class="font-body-md text-body-md text-steel-gray">Scheduled</span>
+<span class="font-headline-display text-headline-display text-primary">{{ todays_dispatches_count }}</span>
+<span class="font-body-md text-body-md text-steel-gray">Today</span>
 </div>
 </div>
 </div>
@@ -130,75 +130,59 @@
 </div>
 <!-- Recent Activity Table (Industrial Style) -->
 <div class="bg-surface level-1-border p-6 overflow-hidden">
-<h2 class="font-headline-md text-headline-md text-primary mb-6">Recent Dispatch Activity</h2>
+<div class="flex justify-between items-center mb-6">
+    <h2 class="font-headline-md text-headline-md text-primary">Recent Dispatch Activity</h2>
+    <a class="font-label-caps text-label-caps text-safety-orange hover:underline flex items-center gap-1" href="{{ url_for('admin_dispatch') }}">
+        VIEW ALL <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+    </a>
+</div>
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse min-w-[600px]">
 <thead>
 <tr class="border-b-2 border-primary">
 <th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">ID</th>
 <th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">CLIENT</th>
-<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">CATEGORY</th>
+<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">PAYMENT</th>
 <th class="font-label-caps text-label-caps text-steel-gray py-3 px-2">STATUS</th>
-<th class="font-label-caps text-label-caps text-steel-gray py-3 px-2 text-right">QTY</th>
 </tr>
 </thead>
 <tbody>
+{% for dispatch in recent_dispatches %}
 <tr class="border-b border-steel-gray/10 hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-2 font-label-caps text-label-caps">#TRK-902</td>
-<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Sharma Logistics</td>
+<td class="py-4 px-2 font-label-caps text-label-caps">#{{ dispatch.id }}</td>
 <td class="py-4 px-2">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px] text-steel-gray">local_shipping</span>
-<span class="font-body-md text-body-md">Truck</span>
-</div>
+    <span class="font-body-md text-body-md font-bold text-primary block">{{ dispatch.customer_name }}</span>
+    <span class="text-xs text-steel-gray">{{ dispatch.tyre_details[:30] + '...' if dispatch.tyre_details|length > 30 else dispatch.tyre_details }}</span>
 </td>
 <td class="py-4 px-2">
-<span class="bg-[#E3FCEF] text-[#00875A] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#00875A]/20">DISPATCHED</span>
+    {% if dispatch.total_amount > 0 %}
+        {% if dispatch.amount_left <= 0 %}
+            <span class="text-[#00875A] font-bold text-sm">₹{{ dispatch.total_amount }} (Fully Paid)</span>
+        {% else %}
+            <span class="text-[#DE350B] font-bold text-sm">Pending: ₹{{ dispatch.amount_left }}</span>
+            <br><span class="text-xs text-steel-gray">of ₹{{ dispatch.total_amount }}</span>
+        {% endif %}
+    {% else %}
+        <span class="text-steel-gray font-bold text-sm">N/A</span>
+    {% endif %}
 </td>
-<td class="py-4 px-2 font-body-lg text-body-lg text-right">24</td>
+<td class="py-4 px-2">
+    {% if dispatch.status == 'Pending' %}
+        <span class="bg-[#FFEBE6] text-[#DE350B] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#DE350B]/20">PENDING</span>
+    {% elif dispatch.status == 'Dispatched' %}
+        <span class="bg-[#FFF0B3] text-[#FF8B00] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#FF8B00]/20">DISPATCHED</span>
+    {% elif dispatch.status == 'Delivered' %}
+        <span class="bg-[#E3FCEF] text-[#00875A] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#00875A]/20">DELIVERED</span>
+    {% else %}
+        <span class="bg-gray-100 text-gray-800 font-label-caps text-[10px] px-2 py-1 rounded-sm">{{ dispatch.status }}</span>
+    {% endif %}
+</td>
 </tr>
-<tr class="border-b border-steel-gray/10 hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-2 font-label-caps text-label-caps">#CRN-114</td>
-<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Metro Builders</td>
-<td class="py-4 px-2">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px] text-steel-gray">precision_manufacturing</span>
-<span class="font-body-md text-body-md">Crane</span>
-</div>
-</td>
-<td class="py-4 px-2">
-<span class="bg-[#FFF0B3] text-[#FF8B00] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#FF8B00]/20">PROCESSING</span>
-</td>
-<td class="py-4 px-2 font-body-lg text-body-lg text-right">4</td>
+{% else %}
+<tr>
+    <td colspan="4" class="py-8 text-center text-steel-gray">No recent dispatch activity.</td>
 </tr>
-<tr class="border-b border-steel-gray/10 hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-2 font-label-caps text-label-caps">#BIK-455</td>
-<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Walk-in Customer</td>
-<td class="py-4 px-2">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px] text-steel-gray">two_wheeler</span>
-<span class="font-body-md text-body-md">Bike</span>
-</div>
-</td>
-<td class="py-4 px-2">
-<span class="bg-[#E3FCEF] text-[#00875A] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#00875A]/20">COMPLETED</span>
-</td>
-<td class="py-4 px-2 font-body-lg text-body-lg text-right">2</td>
-</tr>
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-2 font-label-caps text-label-caps">#ACT-882</td>
-<td class="py-4 px-2 font-body-md text-body-md font-bold text-primary">Raj Traders</td>
-<td class="py-4 px-2">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px] text-steel-gray">moped</span>
-<span class="font-body-md text-body-md">Activa</span>
-</div>
-</td>
-<td class="py-4 px-2">
-<span class="bg-[#FFEBE6] text-[#DE350B] font-label-caps text-[10px] px-2 py-1 rounded-sm border border-[#DE350B]/20">PENDING PAY</span>
-</td>
-<td class="py-4 px-2 font-body-lg text-body-lg text-right">50</td>
-</tr>
+{% endfor %}
 </tbody>
 </table>
 </div>

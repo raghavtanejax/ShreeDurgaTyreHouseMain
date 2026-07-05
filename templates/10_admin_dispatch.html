@@ -37,6 +37,17 @@
                     {{ form.tyre_details(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
                 </div>
                 
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        {{ form.total_amount.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                        {{ form.total_amount(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors", type="number", step="0.01") }}
+                    </div>
+                    <div>
+                        {{ form.amount_received.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                        {{ form.amount_received(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors", type="number", step="0.01") }}
+                    </div>
+                </div>
+                
                 <div>
                     {{ form.status.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
                     {{ form.status(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
@@ -61,6 +72,7 @@
                         <th class="p-3">ID / Date</th>
                         <th class="p-3">Customer / Destination</th>
                         <th class="p-3">Items Sent</th>
+                        <th class="p-3">Payment</th>
                         <th class="p-3">Status</th>
                         <th class="p-3 text-right">Actions</th>
                     </tr>
@@ -79,6 +91,18 @@
                         </td>
                         <td class="p-3">
                             <span class="text-sm text-on-surface">{{ dispatch.tyre_details }}</span>
+                        </td>
+                        <td class="p-3">
+                            {% if dispatch.total_amount > 0 %}
+                                {% if dispatch.amount_left <= 0 %}
+                                    <span class="text-green-600 font-bold text-sm block">₹{{ dispatch.total_amount }} (Paid)</span>
+                                {% else %}
+                                    <span class="text-orange-600 font-bold text-sm block">Left: ₹{{ dispatch.amount_left }}</span>
+                                    <span class="text-xs text-steel-gray block">of ₹{{ dispatch.total_amount }}</span>
+                                {% endif %}
+                            {% else %}
+                                <span class="text-steel-gray text-sm font-bold block">N/A</span>
+                            {% endif %}
                         </td>
                         <td class="p-3">
                             {% if dispatch.status == 'Pending' %}
