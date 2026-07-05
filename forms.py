@@ -32,3 +32,11 @@ class SettingsForm(FlaskForm):
     google_maps_url = StringField('Google Maps URL', validators=[DataRequired(), Length(max=255)])
     hindi_english_toggle = BooleanField('Hindi / English Toggle')
     submit = SubmitField('Save Changes')
+
+class DispatchForm(FlaskForm):
+    customer_name = StringField('Customer / Dealer Name', validators=[DataRequired(), Length(max=150)])
+    phone = StringField('Phone Number', validators=[DataRequired(), Length(max=50)])
+    destination = StringField('Destination / Address', validators=[DataRequired(), Length(max=255)])
+    tyre_details = StringField('Tyres Sent (e.g. 2x MRF ZLX)', validators=[DataRequired()])
+    status = SelectField('Status', choices=[('Pending', 'Pending'), ('Dispatched', 'Dispatched'), ('Delivered', 'Delivered')], default='Pending')
+    submit = SubmitField('Record Dispatch')

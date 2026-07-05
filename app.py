@@ -2,8 +2,8 @@ import os
 from flask import Flask, render_template, redirect, url_for, flash, request, Response
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
-from models import db, User, Tyre, QuoteRequest, SiteSettings
-from forms import LoginForm, TyreForm, QuoteForm, SettingsForm
+from models import db, User, Tyre, QuoteRequest, SiteSettings, DispatchActivity
+from forms import LoginForm, TyreForm, QuoteForm, SettingsForm, DispatchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
@@ -288,6 +288,37 @@ def settings():
                 flash(f"Error in {getattr(form, field).label.text}: {error}", 'error')
                 
     return render_template('6_site_settings.html', form=form)
+
+@app.route('/admin/dispatch', methods=['GET', 'POST'])
+@login_required
+def admin_dispatch():
+    form = DispatchForm()
+    if form.validate_on_submit():
+        dispatch = DispatchActivity(
+            customer_name=form.customer_name.data,
+            phone=form.phone.data,
+            destination=form.destination.data,
+            tyre_details=form.tyre_details.data,
+            status=form.status.data
+        )
+        db.session.add(dispatch)
+        db.session.commit()
+        flash('Dispatch activity recorded successfully.', 'success')
+        return redirect(url_for('admin_dispatch'))
+    
+    dispatches = DispatchActivity.query.order_by(DispatchActivity.date_created.desc()).all()
+    return render_template('10_admin_dispatch.html', form=form, dispatches=dispatches)
+
+@app.route('/admin/dispatch/update_status/<int:dispatch_id>', methods=['POST'])
+@login_required
+def update_dispatch_status(dispatch_id):
+    dispatch = DispatchActivity.query.get_or_404(dispatch_id)
+    new_status = request.form.get('status')
+    if new_status in ['Pending', 'Dispatched', 'Delivered']:
+        dispatch.status = new_status
+        db.session.commit()
+        flash(f'Status for dispatch #{dispatch_id} updated to {new_status}.', 'success')
+    return redirect(url_for('admin_dispatch'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

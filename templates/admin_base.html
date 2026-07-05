@@ -150,6 +150,7 @@
 <nav class="hidden md:flex items-center gap-8">
 <a class="{% if request.endpoint == 'admin_dashboard' %}text-safety-orange border-b-2 border-safety-orange pb-1{% else %}text-steel-gray hover:text-safety-orange{% endif %} font-bold font-body-lg text-body-lg transition-colors duration-200" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
 <a class="{% if request.endpoint == 'inventory' %}text-safety-orange border-b-2 border-safety-orange pb-1{% else %}text-steel-gray hover:text-safety-orange{% endif %} font-bold font-body-lg text-body-lg transition-colors duration-200" href="{{ url_for('inventory') }}">Inventory</a>
+<a class="{% if request.endpoint == 'admin_dispatch' %}text-safety-orange border-b-2 border-safety-orange pb-1{% else %}text-steel-gray hover:text-safety-orange{% endif %} font-bold font-body-lg text-body-lg transition-colors duration-200" href="{{ url_for('admin_dispatch') }}">Dispatch Activity</a>
 <a class="{% if request.endpoint == 'settings' %}text-safety-orange border-b-2 border-safety-orange pb-1{% else %}text-steel-gray hover:text-safety-orange{% endif %} font-bold font-body-lg text-body-lg transition-colors duration-200" href="{{ url_for('settings') }}">Settings</a>
 <a class="text-steel-gray font-body-lg text-body-lg hover:text-safety-orange transition-colors duration-200" href="{{ url_for('index') }}" target="_blank">View Site</a>
 </nav>

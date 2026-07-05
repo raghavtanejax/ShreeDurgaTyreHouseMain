@@ -44,3 +44,13 @@ class SiteSettings(db.Model):
     physical_address = db.Column(db.Text, default="NH-44, Industrial Area, Delhi")
     google_maps_url = db.Column(db.String(255), default="https://maps.google.com/")
     hindi_english_toggle = db.Column(db.Boolean, default=True)
+
+class DispatchActivity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customer_name = db.Column(db.String(150), nullable=False)
+    phone = db.Column(db.String(50), nullable=False)
+    destination = db.Column(db.String(255), nullable=False)
+    tyre_details = db.Column(db.Text, nullable=False)
+    status = db.Column(db.String(50), default="Pending") # Pending, Dispatched, Delivered
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+

@@ -1,0 +1,117 @@
+{% extends 'admin_base.html' %}
+{% block title %}Dispatch Activity - Shree Durga Tyre House{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-end border-b border-steel-gray/20 pb-4 mb-8">
+    <div>
+        <h1 class="text-headline-lg font-headline-lg text-tertiary">Dispatch Activity</h1>
+        <p class="text-body-md text-steel-gray mt-1">Manage outbound shipments and dealer orders</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Dispatch Form -->
+    <div class="lg:col-span-1">
+        <div class="bg-surface border border-steel-gray/20 rounded p-6 shadow-sm">
+            <h2 class="font-headline-md text-tertiary mb-6 pb-2 border-b border-steel-gray/10">Record New Dispatch</h2>
+            <form method="POST" action="{{ url_for('admin_dispatch') }}" class="flex flex-col gap-4">
+                {{ form.hidden_tag() }}
+                
+                <div>
+                    {{ form.customer_name.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.customer_name(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+                </div>
+                
+                <div>
+                    {{ form.phone.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.phone(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+                </div>
+                
+                <div>
+                    {{ form.destination.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.destination(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+                </div>
+                
+                <div>
+                    {{ form.tyre_details.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.tyre_details(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+                </div>
+                
+                <div>
+                    {{ form.status.label(class="block text-sm font-label-caps text-steel-gray uppercase mb-1") }}
+                    {{ form.status(class="w-full bg-surface-container-low border border-steel-gray/20 rounded px-4 py-2 focus:outline-none focus:border-safety-orange focus:ring-1 focus:ring-safety-orange transition-colors") }}
+                </div>
+                
+                <div class="pt-4">
+                    {{ form.submit(class="w-full bg-safety-orange text-primary font-bold py-3 px-4 rounded cursor-pointer hover:bg-secondary transition-colors uppercase tracking-wide") }}
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Dispatch List -->
+    <div class="lg:col-span-2">
+        <div class="bg-surface border border-steel-gray/20 rounded p-6 shadow-sm overflow-x-auto">
+            <h2 class="font-headline-md text-tertiary mb-6 pb-2 border-b border-steel-gray/10">Activity Log</h2>
+            
+            {% if dispatches %}
+            <table class="w-full text-left border-collapse min-w-[700px]">
+                <thead>
+                    <tr class="bg-surface-container-low text-steel-gray font-label-caps uppercase text-sm border-b border-steel-gray/20">
+                        <th class="p-3">ID / Date</th>
+                        <th class="p-3">Customer / Destination</th>
+                        <th class="p-3">Items Sent</th>
+                        <th class="p-3">Status</th>
+                        <th class="p-3 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-steel-gray/10">
+                    {% for dispatch in dispatches %}
+                    <tr class="hover:bg-surface-container-lowest transition-colors group">
+                        <td class="p-3">
+                            <span class="font-bold text-tertiary block">#{{ dispatch.id }}</span>
+                            <span class="text-xs text-steel-gray">{{ dispatch.date_created.strftime('%d %b %Y, %H:%M') }}</span>
+                        </td>
+                        <td class="p-3">
+                            <span class="font-bold text-tertiary block">{{ dispatch.customer_name }}</span>
+                            <span class="text-sm text-steel-gray block">{{ dispatch.phone }}</span>
+                            <span class="text-xs text-steel-gray mt-1 block">{{ dispatch.destination }}</span>
+                        </td>
+                        <td class="p-3">
+                            <span class="text-sm text-on-surface">{{ dispatch.tyre_details }}</span>
+                        </td>
+                        <td class="p-3">
+                            {% if dispatch.status == 'Pending' %}
+                                <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider">Pending</span>
+                            {% elif dispatch.status == 'Dispatched' %}
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider">Dispatched</span>
+                            {% elif dispatch.status == 'Delivered' %}
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider">Delivered</span>
+                            {% else %}
+                                <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-bold uppercase tracking-wider">{{ dispatch.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="p-3 text-right">
+                            <form method="POST" action="{{ url_for('update_dispatch_status', dispatch_id=dispatch.id) }}" class="inline-block">
+                                <select name="status" onchange="this.form.submit()" class="text-xs border border-steel-gray/20 rounded px-2 py-1 bg-surface-container-low cursor-pointer hover:border-safety-orange focus:outline-none">
+                                    <option value="" disabled selected>Update Status...</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Dispatched">Dispatched</option>
+                                    <option value="Delivered">Delivered</option>
+                                </select>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="text-center py-12 text-steel-gray">
+                <span class="material-symbols-outlined text-4xl opacity-50 mb-2">local_shipping</span>
+                <p>No dispatch activity recorded yet.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
