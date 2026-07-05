@@ -296,7 +296,9 @@ def settings():
     form = SettingsForm(obj=settings)
     
     if form.validate_on_submit():
+        settings.primary_contact_name = form.primary_contact_name.data
         settings.primary_contact = form.primary_contact.data
+        settings.secondary_contact_name = form.secondary_contact_name.data
         settings.secondary_contact = form.secondary_contact.data
         settings.physical_address = form.physical_address.data
         settings.google_maps_url = form.google_maps_url.data

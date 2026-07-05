@@ -37,13 +37,25 @@
 <h2 class="font-headline-md text-headline-md">Contact Numbers</h2>
 </div>
 <div class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
 <div>
-<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Primary Contact (Ashutosh)</label>
-{{ form.primary_contact(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="Enter phone number") }}
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Primary Name</label>
+{{ form.primary_contact_name(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="Ashutosh Batra") }}
 </div>
 <div>
-<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Secondary Contact (Aman)</label>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Primary Number</label>
+{{ form.primary_contact(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="Enter phone number") }}
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Secondary Name</label>
+{{ form.secondary_contact_name(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="Aman") }}
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Secondary Number</label>
 {{ form.secondary_contact(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors", placeholder="Enter phone number") }}
+</div>
 </div>
 </div>
 </div>

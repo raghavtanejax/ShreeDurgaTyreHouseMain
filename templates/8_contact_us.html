@@ -30,7 +30,7 @@
 <div class="bg-surface border border-steel-gray/20 p-4 rounded hover:shadow-[4px_4px_0_0_#000000] transition-shadow duration-200">
 <div class="flex items-center justify-between">
 <div>
-<p class="font-bold text-tertiary">Ashutosh Batra</p>
+<p class="font-bold text-tertiary">{{ settings.primary_contact_name }}</p>
 <p class="text-on-surface-variant text-sm">Owner</p>
 </div>
 <a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:{{ settings.primary_contact|replace(' ', '') }}">
@@ -42,7 +42,7 @@
 <div class="bg-surface border border-steel-gray/20 p-4 rounded hover:shadow-[4px_4px_0_0_#000000] transition-shadow duration-200">
 <div class="flex items-center justify-between">
 <div>
-<p class="font-bold text-tertiary">Aman</p>
+<p class="font-bold text-tertiary">{{ settings.secondary_contact_name }}</p>
 
 </div>
 <a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:{{ settings.secondary_contact|replace(' ', '') }}">

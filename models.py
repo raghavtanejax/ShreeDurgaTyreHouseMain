@@ -42,7 +42,9 @@ class QuoteRequest(db.Model):
 
 class SiteSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    primary_contact_name = db.Column(db.String(100), default="Ashutosh Batra")
     primary_contact = db.Column(db.String(50), default="+91 9876543210")
+    secondary_contact_name = db.Column(db.String(100), default="Aman")
     secondary_contact = db.Column(db.String(50), default="+91 1234567890")
     physical_address = db.Column(db.Text, default="NH-44, Industrial Area, Delhi")
     google_maps_url = db.Column(db.String(255), default="https://maps.google.com/")

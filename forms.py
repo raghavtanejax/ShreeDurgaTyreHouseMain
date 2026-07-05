@@ -26,7 +26,9 @@ class QuoteForm(FlaskForm):
     submit = SubmitField('Send Request')
 
 class SettingsForm(FlaskForm):
+    primary_contact_name = StringField('Primary Contact Name', validators=[DataRequired(), Length(max=100)])
     primary_contact = StringField('Primary Contact', validators=[DataRequired(), Length(max=50)])
+    secondary_contact_name = StringField('Secondary Contact Name', validators=[Length(max=100)])
     secondary_contact = StringField('Secondary Contact', validators=[Length(max=50)])
     physical_address = StringField('Physical Address', validators=[DataRequired()])
     google_maps_url = StringField('Google Maps URL', validators=[DataRequired(), Length(max=255)])
