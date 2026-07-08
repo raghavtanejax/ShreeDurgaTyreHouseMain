@@ -66,7 +66,12 @@
                 <div class="mb-4">
                     <span class="text-xs font-label-caps text-steel-gray uppercase block mb-1">Price</span>
                     <div class="flex flex-wrap gap-2">
-                        <span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">₹{{ tyre.price }}</span>
+                        <span class="bg-surface-container-high text-primary px-2 py-1 text-sm rounded border border-steel-gray/10">
+                            {% if tyre.mrp_price and tyre.mrp_price > 0 %}
+                            <del class="text-steel-gray mr-1">₹{{ tyre.mrp_price }}</del>
+                            {% endif %}
+                            ₹{{ tyre.price }}
+                        </span>
                     </div>
                 </div>
                 <button class="w-full bg-safety-orange text-primary font-bold py-3 px-4 rounded border-b-2 border-secondary btn-press transition-all flex items-center justify-center gap-2 uppercase tracking-wide text-sm cut-shadow-sm" onclick="window.location.href='{{ url_for('contact') }}'">

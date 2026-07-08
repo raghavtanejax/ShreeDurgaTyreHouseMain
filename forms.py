@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FloatField, IntegerField, SelectField, BooleanField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Optional
 from flask_wtf.file import FileField, FileAllowed
 
 class LoginForm(FlaskForm):
@@ -9,12 +9,13 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class TyreForm(FlaskForm):
-    model = StringField('Model', validators=[DataRequired(), Length(max=150)])
-    brand = SelectField('Brand', choices=[('MRF', 'MRF'), ('Apollo', 'Apollo'), ('CEAT', 'CEAT'), ('Michelin', 'Michelin'), ('Bridgestone', 'Bridgestone'), ('Other', 'Other')], validators=[DataRequired()])
-    category = SelectField('Category', choices=[('Bike & Scooter', 'Bike & Scooter'), ('Car & SUV', 'Car & SUV'), ('Truck & Crane', 'Truck & Crane'), ('Other', 'Other')], validators=[DataRequired()])
-    price = FloatField('Price (₹)', validators=[DataRequired()])
-    stock = IntegerField('Stock Level', validators=[DataRequired()])
-    sku = StringField('SKU', validators=[DataRequired(), Length(max=50)])
+    model = StringField('Model', validators=[Optional(), Length(max=150)])
+    brand = SelectField('Brand', choices=[('MRF', 'MRF'), ('Apollo', 'Apollo'), ('CEAT', 'CEAT'), ('Michelin', 'Michelin'), ('Bridgestone', 'Bridgestone'), ('Other', 'Other')], validators=[Optional()])
+    category = SelectField('Category', choices=[('Bike & Scooter', 'Bike & Scooter'), ('Car & SUV', 'Car & SUV'), ('Truck & Crane', 'Truck & Crane'), ('Other', 'Other')], validators=[Optional()])
+    mrp_price = FloatField('MRP Price (₹)', validators=[Optional()])
+    price = FloatField('Price (₹)', validators=[Optional()])
+    stock = IntegerField('Stock Level', validators=[Optional()])
+    sku = StringField('SKU', validators=[Optional(), Length(max=50)])
     image = FileField('Tyre Image', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'heic', 'heif', 'bmp', 'tiff'], 'Images only!')])
     submit = SubmitField('Save Tyre')
 

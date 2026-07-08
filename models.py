@@ -14,12 +14,13 @@ class User(UserMixin, db.Model):
 
 class Tyre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(150), nullable=False)
-    brand = db.Column(db.String(100), nullable=False)
-    category = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    stock = db.Column(db.Integer, default=0)
-    sku = db.Column(db.String(50), unique=True, nullable=False)
+    model = db.Column(db.String(150), nullable=True)
+    brand = db.Column(db.String(100), nullable=True)
+    category = db.Column(db.String(100), nullable=True)
+    price = db.Column(db.Float, nullable=True)
+    mrp_price = db.Column(db.Float, nullable=True)
+    stock = db.Column(db.Integer, default=0, nullable=True)
+    sku = db.Column(db.String(50), unique=True, nullable=True)
     image_filename = db.Column(db.String(255), nullable=True)
     date_added = db.Column(db.DateTime, default=get_ist_time)
 

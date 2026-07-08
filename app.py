@@ -213,6 +213,7 @@ def inventory():
             brand=form.brand.data,
             category=form.category.data,
             price=form.price.data,
+            mrp_price=form.mrp_price.data,
             stock=form.stock.data,
             sku=form.sku.data,
             image_filename=filename
@@ -258,6 +259,7 @@ def edit_tyre(id):
         tyre.brand = form.brand.data
         tyre.category = form.category.data
         tyre.price = form.price.data
+        tyre.mrp_price = form.mrp_price.data
         tyre.stock = form.stock.data
         tyre.sku = form.sku.data
         if form.image.data and form.image.data.filename:
