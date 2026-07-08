@@ -28,7 +28,7 @@
 <p class="text-steel-gray">Manage your shop's contact details, location, and localization preferences.</p>
 </div>
 <!-- Settings Form Grid -->
-<form method="POST" class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
     {{ form.hidden_tag() }}
 <!-- Contact Information Card -->
 <div class="bg-surface-container-lowest border border-steel-gray/20 rounded p-6 shadow-sm hover:cut-shadow transition-shadow duration-200">
@@ -93,6 +93,32 @@
 <div class="w-14 h-7 bg-steel-gray/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-steel-gray after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-safety-orange"></div>
 <span class="ml-3 font-label-caps text-label-caps text-primary">ENABLED</span>
 </label>
+</div>
+</div>
+</div>
+<!-- Site Images Card -->
+<div class="bg-surface-container-lowest border border-steel-gray/20 rounded p-6 shadow-sm hover:cut-shadow transition-shadow duration-200 lg:col-span-2">
+<div class="flex items-center gap-3 mb-6 border-b border-steel-gray/20 pb-4">
+<span class="material-symbols-outlined text-safety-orange text-2xl">imagesmode</span>
+<h2 class="font-headline-md text-headline-md">Site Images</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Home Shop Photo</label>
+{{ form.home_shop_image(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-surface-container-low file:text-safety-orange hover:file:bg-surface-container") }}
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Truck Category Photo</label>
+{{ form.truck_category_image(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-surface-container-low file:text-safety-orange hover:file:bg-surface-container") }}
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Car Category Photo</label>
+{{ form.car_category_image(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-surface-container-low file:text-safety-orange hover:file:bg-surface-container") }}
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-steel-gray mb-1">Bike Category Photo</label>
+{{ form.bike_category_image(class="w-full bg-surface border border-steel-gray/30 rounded p-3 font-body-md text-primary input-focus-ring transition-colors file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-surface-container-low file:text-safety-orange hover:file:bg-surface-container") }}
+</div>
 </div>
 </div>
 <!-- Action Bar -->

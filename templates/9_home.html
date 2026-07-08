@@ -36,7 +36,7 @@
 </div>
 <div class="relative z-10 flex justify-center lg:justify-end">
 <div class="relative w-full max-w-md rounded-xl overflow-hidden border border-steel-gray/20 shadow-[4px_4px_0_0_#4A4A4A] bg-surface anti-gravity-card">
-<img alt="Shree Durga Tyre House Shop" class="object-cover w-full h-auto" src="{{ url_for('static', filename='images/shop.jpg') }}">
+<img alt="Shree Durga Tyre House Shop" class="object-cover w-full h-auto" src="{{ settings.home_shop_image if settings.home_shop_image else url_for('static', filename='images/shop.jpg') }}">
 </div>
 </div>
 </div>
@@ -54,7 +54,7 @@
 <!-- Card 1 -->
 <a href="{{ url_for('truck_tyres') }}" class="block bg-surface-container-lowest border border-steel-gray/20 rounded-lg p-6 hover:shadow-[0_4px_0_0_#000000] hover:-translate-y-1 transition-all duration-300 group">
 <div class="aspect-[1.67] w-full mb-6 overflow-hidden rounded bg-surface-container relative border border-steel-gray/10">
-<img alt="Types of Tyres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A detailed, high-resolution shot of various types of vehicle tyres arranged in an industrial workshop setting, emphasizing the thick treads and durable rubber construction suitable for trucks and commercial vehicles." src="{{ url_for('static', filename='images/5_truck_crane_tyres.png') }}">
+<img alt="Types of Tyres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A detailed, high-resolution shot of various types of vehicle tyres arranged in an industrial workshop setting, emphasizing the thick treads and durable rubber construction suitable for trucks and commercial vehicles." src="{{ settings.truck_category_image if settings.truck_category_image else url_for('static', filename='images/5_truck_crane_tyres.png') }}">
 <div class="absolute top-4 left-4 bg-safety-orange text-tertiary font-label-caps px-3 py-1 rounded-sm shadow-sm">Heavy Duty</div>
 </div>
 <h3 class="font-headline-md text-headline-md text-primary mb-2 flex items-center gap-2">
@@ -66,7 +66,7 @@
 <!-- Card 2 -->
 <a href="{{ url_for('car_tyres') }}" class="block bg-surface-container-lowest border border-steel-gray/20 rounded-lg p-6 hover:shadow-[0_4px_0_0_#000000] hover:-translate-y-1 transition-all duration-300 group">
 <div class="aspect-square w-full mb-6 overflow-hidden rounded bg-surface-container relative border border-steel-gray/10">
-<img alt="Car Tire" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up studio shot of a pristine, brand-new car tyre with deep, intricate tread patterns against a clean, light industrial background, highlighting the quality and grip of the rubber." src="{{ url_for('static', filename='images/7_car_suv_tyres.png') }}">
+<img alt="Car Tire" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A close-up studio shot of a pristine, brand-new car tyre with deep, intricate tread patterns against a clean, light industrial background, highlighting the quality and grip of the rubber." src="{{ settings.car_category_image if settings.car_category_image else url_for('static', filename='images/7_car_suv_tyres.png') }}">
 <div class="absolute top-4 left-4 bg-safety-orange text-tertiary font-label-caps px-3 py-1 rounded-sm shadow-sm">Performance</div>
 </div>
 <h3 class="font-headline-md text-headline-md text-primary mb-2 flex items-center gap-2">
@@ -77,7 +77,7 @@
 </a>
 <!-- Card 3 -->
 <a href="{{ url_for('bike_tyres') }}" class="block bg-surface-container-lowest border border-steel-gray/20 rounded-lg p-6 hover:shadow-[0_4px_0_0_#000000] hover:-translate-y-1 transition-all duration-300 group">
-<div class="aspect-square w-full mb-6 overflow-hidden rounded bg-surface-container border border-steel-gray/10 relative"><img alt="Bike and Activa Tyres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="{{ url_for('static', filename='images/2_bike_scooter_tyres.png') }}" data-alt="A variety of high-quality motorcycle and scooter tyres with specialized tread patterns for safety and performance."><div class="absolute top-4 left-4 bg-safety-orange text-tertiary font-label-caps px-3 py-1 rounded-sm shadow-sm">Commuter</div></div>
+<div class="aspect-square w-full mb-6 overflow-hidden rounded bg-surface-container border border-steel-gray/10 relative"><img alt="Bike and Activa Tyres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="{{ settings.bike_category_image if settings.bike_category_image else url_for('static', filename='images/2_bike_scooter_tyres.png') }}" data-alt="A variety of high-quality motorcycle and scooter tyres with specialized tread patterns for safety and performance."><div class="absolute top-4 left-4 bg-safety-orange text-tertiary font-label-caps px-3 py-1 rounded-sm shadow-sm">Commuter</div></div>
 <h3 class="font-headline-md text-headline-md text-primary mb-2 flex items-center gap-2">
 <span class="material-symbols-outlined text-safety-orange">motorcycle</span>
                             Bike &amp; Activa Tyres

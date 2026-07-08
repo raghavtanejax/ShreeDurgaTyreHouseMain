@@ -49,6 +49,10 @@ class SiteSettings(db.Model):
     physical_address = db.Column(db.Text, default="NH-44, Industrial Area, Delhi")
     google_maps_url = db.Column(db.String(255), default="https://maps.google.com/")
     hindi_english_toggle = db.Column(db.Boolean, default=True)
+    home_shop_image = db.Column(db.String(255), nullable=True)
+    truck_category_image = db.Column(db.String(255), nullable=True)
+    car_category_image = db.Column(db.String(255), nullable=True)
+    bike_category_image = db.Column(db.String(255), nullable=True)
 
 class DispatchActivity(db.Model):
     id = db.Column(db.Integer, primary_key=True)

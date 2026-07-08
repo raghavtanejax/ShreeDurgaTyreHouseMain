@@ -5,7 +5,7 @@
 <section class="relative w-full flex items-center bg-surface-container-low overflow-hidden min-h-[300px] h-[600px]">
 <!-- Background Image -->
 <div class="absolute inset-0 w-full h-full">
-<img class="object-cover w-full h-full opacity-80 mix-blend-multiply" data-alt="A dynamic, high-contrast hero image featuring premium two-wheeler tyres stacked in an industrial setting. Golden lighting accents the tread patterns against a deep, dark background. The mood is powerful, precise, and high-performance, reflecting an automotive workshop aesthetic." src="https://lh3.googleusercontent.com/aida/AP1WRLvLnlxCQo_t6jZz1pucOwZSgsuBy19pCIbWbHeqSnWMtWg2mnRd-7ttcwOWflnpdi55mZdAE6K8UOLxKvrbUP5RjXvGPrgfi-tJZIjVKKCGfp_lnGq1S3MlHJGToFRrCB8ilvc2vDfRjBA5ujl8BJM-YR5juQux3VXzoMTieGKVAMeIXCktS4EtMHOQJyu0ZLK3wdMc9Vx8go-tw7uYwhsaeufGNMYJtCmxB6fPekwOl2lI_njajbScBdI">
+<img class="object-cover w-full h-full opacity-80 mix-blend-multiply" data-alt="A dynamic, high-contrast hero image featuring premium two-wheeler tyres stacked in an industrial setting. Golden lighting accents the tread patterns against a deep, dark background. The mood is powerful, precise, and high-performance, reflecting an automotive workshop aesthetic." src="{{ settings.bike_category_image if settings.bike_category_image else url_for('static', filename='images/2_bike_scooter_tyres.png') }}">
 </div>
 <div class="relative z-10 w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
 <div class="max-w-2xl">

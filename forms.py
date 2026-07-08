@@ -33,6 +33,10 @@ class SettingsForm(FlaskForm):
     physical_address = StringField('Physical Address', validators=[DataRequired()])
     google_maps_url = StringField('Google Maps URL', validators=[DataRequired(), Length(max=255)])
     hindi_english_toggle = BooleanField('Hindi / English Toggle')
+    home_shop_image = FileField('Home Shop Photo', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'webp', 'avif', 'heic', 'heif'], 'Images only!')])
+    truck_category_image = FileField('Truck Category Photo', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'webp', 'avif', 'heic', 'heif'], 'Images only!')])
+    car_category_image = FileField('Car Category Photo', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'webp', 'avif', 'heic', 'heif'], 'Images only!')])
+    bike_category_image = FileField('Bike Category Photo', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'webp', 'avif', 'heic', 'heif'], 'Images only!')])
     submit = SubmitField('Save Changes')
 
 class DispatchForm(FlaskForm):

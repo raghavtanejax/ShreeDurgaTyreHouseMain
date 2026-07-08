@@ -296,6 +296,26 @@ def settings():
     form = SettingsForm(obj=settings)
     
     if form.validate_on_submit():
+        try:
+            if form.home_shop_image.data and form.home_shop_image.data.filename:
+                upload_result = cloudinary.uploader.upload(form.home_shop_image.data)
+                settings.home_shop_image = upload_result.get('secure_url')
+            if form.truck_category_image.data and form.truck_category_image.data.filename:
+                upload_result = cloudinary.uploader.upload(form.truck_category_image.data)
+                settings.truck_category_image = upload_result.get('secure_url')
+            if form.car_category_image.data and form.car_category_image.data.filename:
+                upload_result = cloudinary.uploader.upload(form.car_category_image.data)
+                settings.car_category_image = upload_result.get('secure_url')
+            if form.bike_category_image.data and form.bike_category_image.data.filename:
+                upload_result = cloudinary.uploader.upload(form.bike_category_image.data)
+                settings.bike_category_image = upload_result.get('secure_url')
+        except Exception as e:
+            error_msg = str(e)
+            if 'API key' in error_msg:
+                error_msg = "Unknown API Key. Please check your Vercel Environment Variables."
+            flash(f'Cloudinary Upload Error: {error_msg}', 'error')
+            return redirect(url_for('settings'))
+
         settings.primary_contact_name = form.primary_contact_name.data
         settings.primary_contact = form.primary_contact.data
         settings.secondary_contact_name = form.secondary_contact_name.data
