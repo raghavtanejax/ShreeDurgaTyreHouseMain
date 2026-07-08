@@ -194,27 +194,27 @@
 <div class="bg-charcoal-black p-6 text-surface">
 <h2 class="font-headline-md text-headline-md mb-6 text-surface border-b-2 border-safety-orange inline-block pb-1">Quick Actions</h2>
 <div class="flex flex-col gap-4">
-<button class="bg-surface text-primary font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:bg-safety-orange transition-colors duration-300">
+<a href="{{ url_for('inventory') }}" class="bg-surface text-primary font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:bg-safety-orange transition-colors duration-300 w-full text-left">
 <span class="flex items-center gap-3">
 <span class="material-symbols-outlined group-hover:text-primary text-safety-orange transition-colors">add_circle</span>
                                 ADD NEW TYRE
                             </span>
 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</button>
-<button class="bg-transparent border border-surface/30 text-surface font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:border-safety-orange transition-colors duration-300">
+</a>
+<a href="{{ url_for('admin_quotes') }}" class="bg-transparent border border-surface/30 text-surface font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:border-safety-orange transition-colors duration-300 w-full text-left">
 <span class="flex items-center gap-3">
 <span class="material-symbols-outlined text-surface-variant group-hover:text-safety-orange transition-colors">list_alt</span>
                                 VIEW ALL INQUIRIES
                             </span>
 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</button>
-<button class="bg-transparent border border-surface/30 text-surface font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:border-safety-orange transition-colors duration-300">
+</a>
+<a href="#" onclick="window.print(); return false;" class="bg-transparent border border-surface/30 text-surface font-label-caps text-label-caps px-4 py-4 flex items-center justify-between group hover:border-safety-orange transition-colors duration-300 w-full text-left">
 <span class="flex items-center gap-3">
 <span class="material-symbols-outlined text-surface-variant group-hover:text-safety-orange transition-colors">summarize</span>
                                 GENERATE REPORT
                             </span>
 <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</button>
+</a>
 </div>
 </div>
 <!-- Industrial Image Banner -->
