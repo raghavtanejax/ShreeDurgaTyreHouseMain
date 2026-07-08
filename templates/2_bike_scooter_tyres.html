@@ -2,22 +2,34 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section class="relative w-full flex items-center bg-surface-container-low overflow-hidden min-h-[300px] h-[600px]">
-<!-- Background Image -->
-<div class="absolute inset-0 w-full h-full">
-<img class="object-cover w-full h-full opacity-80 mix-blend-multiply" data-alt="A dynamic, high-contrast hero image featuring premium two-wheeler tyres stacked in an industrial setting. Golden lighting accents the tread patterns against a deep, dark background. The mood is powerful, precise, and high-performance, reflecting an automotive workshop aesthetic." src="{{ settings.bike_category_image if settings.bike_category_image else url_for('static', filename='images/2_bike_scooter_tyres.png') }}">
+<section class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
+<div class="flex flex-col gap-6">
+<h1 class="font-headline-display text-headline-lg-mobile md:text-headline-display text-tertiary uppercase tracking-tight">
+                        Master Every Corner. <br><span class="text-safety-orange">Own the Road.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-steel-gray max-w-lg">
+                        Premium MRF, Apollo, and Birla tyres for Bikes and Scooters (Activa). Engineered for maximum grip, superior safety, and high-velocity precision in urban commutes and highway rides.
+                    </p>
+<div class="flex flex-wrap gap-4 mt-4">
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded border border-steel-gray/20">
+<span class="material-symbols-outlined text-safety-orange">verified</span>
+<span class="font-label-caps text-label-caps text-tertiary">100% Genuine</span>
 </div>
-<div class="relative z-10 w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop">
-<div class="max-w-2xl">
-<h1 class="text-headline-display font-headline-display text-primary mb-6">Master Every Corner. <br><span class="text-safety-orange">Own the Road.</span></h1>
-<p class="text-body-lg font-body-lg text-steel-gray mb-8">Premium MRF, Apollo, and Birla tyres for Bikes and Scooters (Activa). Engineered for maximum grip, superior safety, and high-velocity precision in urban commutes and highway rides.</p>
-<div class="flex gap-4">
-<a class="inline-flex items-center gap-2 bg-safety-orange text-primary font-bold px-6 py-3 rounded border-b-2 border-secondary hover:bg-secondary-container transition-colors active:translate-y-0.5 shadow-primary cut-shadow" href="#catalogue">
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded border border-steel-gray/20">
+<span class="material-symbols-outlined text-safety-orange">handyman</span>
+<span class="font-label-caps text-label-caps text-tertiary">Expert Fitting</span>
+</div>
+</div>
+<div class="flex gap-4 mt-2">
+<a class="inline-flex items-center gap-2 bg-safety-orange text-primary font-bold px-6 py-3 rounded border-b-2 border-secondary hover:bg-secondary-container transition-colors active:translate-y-0.5 shadow-primary cut-shadow w-fit" href="#catalogue">
                             Explore Tyres
                             <span class="material-symbols-outlined">arrow_downward</span>
 </a>
-
 </div>
+</div>
+<div class="relative h-[400px] md:h-[500px] w-full bg-surface-container border border-steel-gray/20 rounded cut-shadow overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A dynamic, high-contrast hero image featuring premium two-wheeler tyres stacked in an industrial setting. Golden lighting accents the tread patterns against a deep, dark background. The mood is powerful, precise, and high-performance, reflecting an automotive workshop aesthetic." src="{{ settings.bike_category_image if settings.bike_category_image else url_for('static', filename='images/2_bike_scooter_tyres.png') }}">
 </div>
 </div>
 </section>
