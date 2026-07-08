@@ -297,16 +297,16 @@ def settings():
     
     if form.validate_on_submit():
         try:
-            if form.home_shop_image.data and form.home_shop_image.data.filename:
+            if hasattr(form.home_shop_image.data, 'filename') and form.home_shop_image.data.filename:
                 upload_result = cloudinary.uploader.upload(form.home_shop_image.data)
                 settings.home_shop_image = upload_result.get('secure_url')
-            if form.truck_category_image.data and form.truck_category_image.data.filename:
+            if hasattr(form.truck_category_image.data, 'filename') and form.truck_category_image.data.filename:
                 upload_result = cloudinary.uploader.upload(form.truck_category_image.data)
                 settings.truck_category_image = upload_result.get('secure_url')
-            if form.car_category_image.data and form.car_category_image.data.filename:
+            if hasattr(form.car_category_image.data, 'filename') and form.car_category_image.data.filename:
                 upload_result = cloudinary.uploader.upload(form.car_category_image.data)
                 settings.car_category_image = upload_result.get('secure_url')
-            if form.bike_category_image.data and form.bike_category_image.data.filename:
+            if hasattr(form.bike_category_image.data, 'filename') and form.bike_category_image.data.filename:
                 upload_result = cloudinary.uploader.upload(form.bike_category_image.data)
                 settings.bike_category_image = upload_result.get('secure_url')
         except Exception as e:
