@@ -33,8 +33,9 @@
 <p class="font-bold text-tertiary">{{ settings.primary_contact_name }}</p>
 <p class="text-on-surface-variant text-sm">Owner</p>
 </div>
-<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:{{ settings.primary_contact|replace(' ', '') }}">
+<a class="bg-safety-orange text-primary px-3 py-2 rounded btn-tactile flex items-center justify-center gap-2" href="tel:{{ settings.primary_contact|replace(' ', '') }}">
 <span class="material-symbols-outlined">call</span>
+<span class="font-bold text-sm">{{ settings.primary_contact }}</span>
 </a>
 </div>
 </div>
@@ -43,10 +44,10 @@
 <div class="flex items-center justify-between">
 <div>
 <p class="font-bold text-tertiary">{{ settings.secondary_contact_name }}</p>
-
 </div>
-<a class="bg-safety-orange text-primary p-2 rounded btn-tactile flex items-center justify-center" href="tel:{{ settings.secondary_contact|replace(' ', '') }}">
+<a class="bg-safety-orange text-primary px-3 py-2 rounded btn-tactile flex items-center justify-center gap-2" href="tel:{{ settings.secondary_contact|replace(' ', '') }}">
 <span class="material-symbols-outlined">call</span>
+<span class="font-bold text-sm">{{ settings.secondary_contact }}</span>
 </a>
 </div>
 </div>
