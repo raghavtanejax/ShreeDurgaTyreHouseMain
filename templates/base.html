@@ -124,9 +124,17 @@
 </div>
 <nav class="hidden md:flex gap-8 items-center">
 <a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('categories') }}">Browse Tyres</a>
-<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('truck_tyres') }}">Truck/Bus (All Commercial Tyre)</a>
-<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('bike_tyres') }}">Bike / Scooter</a>
-<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('car_tyres') }}">Car Tyre</a>
+<div class="relative group py-2">
+    <button class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200 flex items-center gap-1">
+        Vehicle Type
+        <span class="material-symbols-outlined text-sm transition-transform duration-200 group-hover:-scale-y-100">expand_more</span>
+    </button>
+    <div class="absolute left-0 top-full mt-0 pt-2 w-72 bg-surface dark:bg-charcoal-black border border-steel-gray/20 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 flex flex-col overflow-hidden">
+        <a class="px-5 py-3 font-body-md text-body-md text-steel-gray dark:text-surface-variant hover:text-safety-orange hover:bg-surface-container-low transition-colors duration-200 border-b border-steel-gray/10" href="{{ url_for('truck_tyres') }}">Truck/Bus (All Commercial Tyre)</a>
+        <a class="px-5 py-3 font-body-md text-body-md text-steel-gray dark:text-surface-variant hover:text-safety-orange hover:bg-surface-container-low transition-colors duration-200 border-b border-steel-gray/10" href="{{ url_for('car_tyres') }}">Car Tyre</a>
+        <a class="px-5 py-3 font-body-md text-body-md text-steel-gray dark:text-surface-variant hover:text-safety-orange hover:bg-surface-container-low transition-colors duration-200" href="{{ url_for('bike_tyres') }}">Bike / Scooter</a>
+    </div>
+</div>
 <a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('contact') }}">Contact</a>
 </nav>
 <div class="flex items-center gap-4">
@@ -147,9 +155,19 @@
 <div id="mobile-menu" class="md:hidden absolute top-20 left-0 w-full bg-surface dark:bg-charcoal-black border-b border-steel-gray/20 transition-all duration-300 overflow-hidden max-h-0 opacity-0 shadow-lg">
   <nav class="flex flex-col px-margin-mobile py-4 space-y-4">
     <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('categories') }}">Browse Tyres</a>
-    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('truck_tyres') }}">Truck/Bus (All Commercial Tyre)</a>
-    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('bike_tyres') }}">Bike / Scooter</a>
-    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('car_tyres') }}">Car Tyre</a>
+    
+    <div class="flex flex-col space-y-2">
+      <button id="mobile-vehicle-type-btn" class="flex justify-between items-center font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors w-full text-left">
+        Vehicle Type
+        <span class="material-symbols-outlined transition-transform duration-200" id="mobile-vehicle-icon">expand_more</span>
+      </button>
+      <div id="mobile-vehicle-menu" class="flex flex-col pl-4 space-y-3 overflow-hidden max-h-0 opacity-0 transition-all duration-300">
+        <a class="font-body-md text-body-md text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('truck_tyres') }}">Truck/Bus (All Commercial Tyre)</a>
+        <a class="font-body-md text-body-md text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('car_tyres') }}">Car Tyre</a>
+        <a class="font-body-md text-body-md text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('bike_tyres') }}">Bike / Scooter</a>
+      </div>
+    </div>
+
     <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('contact') }}">Contact</a>
     {% if current_user.is_authenticated %}
     <hr class="border-steel-gray/20">
@@ -177,6 +195,21 @@
       spans[2].classList.toggle('-translate-y-2');
       spans[2].classList.toggle('-rotate-45');
     });
+
+    const vehicleBtn = document.getElementById('mobile-vehicle-type-btn');
+    const vehicleMenu = document.getElementById('mobile-vehicle-menu');
+    const vehicleIcon = document.getElementById('mobile-vehicle-icon');
+    
+    if (vehicleBtn) {
+      vehicleBtn.addEventListener('click', () => {
+        vehicleMenu.classList.toggle('max-h-0');
+        vehicleMenu.classList.toggle('opacity-0');
+        vehicleMenu.classList.toggle('max-h-48');
+        vehicleMenu.classList.toggle('opacity-100');
+        vehicleMenu.classList.toggle('mt-2');
+        vehicleIcon.classList.toggle('-scale-y-100');
+      });
+    }
   });
 </script>
 <main class="flex-grow">
