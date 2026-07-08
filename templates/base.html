@@ -124,9 +124,9 @@
 </div>
 <nav class="hidden md:flex gap-8 items-center">
 <a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('categories') }}">Browse Tyres</a>
-<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('truck_tyres') }}">Truck & Crane</a>
-<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('bike_tyres') }}">Bike</a>
-<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('car_tyres') }}">Car & SUV</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('truck_tyres') }}">Truck/Bus (All Commercial Tyre)</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('bike_tyres') }}">Bike / Scooter</a>
+<a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('car_tyres') }}">Car Tyre</a>
 <a class="font-body-lg text-body-lg text-steel-gray dark:text-surface-variant hover:text-safety-orange transition-colors duration-200" href="{{ url_for('contact') }}">Contact</a>
 </nav>
 <div class="flex items-center gap-4">
@@ -147,9 +147,9 @@
 <div id="mobile-menu" class="md:hidden absolute top-20 left-0 w-full bg-surface dark:bg-charcoal-black border-b border-steel-gray/20 transition-all duration-300 overflow-hidden max-h-0 opacity-0 shadow-lg">
   <nav class="flex flex-col px-margin-mobile py-4 space-y-4">
     <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('categories') }}">Browse Tyres</a>
-    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('truck_tyres') }}">Truck & Crane</a>
-    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('bike_tyres') }}">Bike</a>
-    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('car_tyres') }}">Car & SUV</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('truck_tyres') }}">Truck/Bus (All Commercial Tyre)</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('bike_tyres') }}">Bike / Scooter</a>
+    <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('car_tyres') }}">Car Tyre</a>
     <a class="font-body-lg text-body-lg text-steel-gray hover:text-safety-orange transition-colors" href="{{ url_for('contact') }}">Contact</a>
     {% if current_user.is_authenticated %}
     <hr class="border-steel-gray/20">
