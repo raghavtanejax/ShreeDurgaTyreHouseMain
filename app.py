@@ -295,6 +295,18 @@ def admin_quotes():
     quotes = QuoteRequest.query.order_by(QuoteRequest.date_submitted.desc()).all()
     return render_template('admin_quotes.html', quotes=quotes)
 
+@app.route('/admin/quotes/delete/<int:quote_id>', methods=['GET', 'POST'])
+@login_required
+def delete_quote(quote_id):
+    quote = QuoteRequest.query.get(quote_id)
+    if not quote:
+        flash('Quote not found or already deleted.', 'error')
+        return redirect(url_for('admin_quotes'))
+    db.session.delete(quote)
+    db.session.commit()
+    flash('Quote deleted successfully.', 'success')
+    return redirect(url_for('admin_quotes'))
+
 @app.route('/admin/settings', methods=['GET', 'POST'])
 @login_required
 def settings():

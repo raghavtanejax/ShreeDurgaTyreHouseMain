@@ -27,10 +27,15 @@
             <p class="text-on-surface-variant bg-surface-container-lowest p-4 border border-steel-gray/10 rounded">{{ quote.message }}</p>
         </div>
         
-        <div class="flex justify-start border-t border-steel-gray/10 pt-4">
+        <div class="flex justify-between items-center border-t border-steel-gray/10 pt-4">
             <a href="tel:{{ quote.phone }}" class="flex items-center gap-2 text-safety-orange font-bold hover:text-orange-500">
                 <span class="material-symbols-outlined">call</span> {{ quote.phone }}
             </a>
+            <form action="{{ url_for('delete_quote', quote_id=quote.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this quote request?');">
+                <button type="submit" class="flex items-center gap-1 text-error hover:text-red-700 transition-colors font-body-sm font-bold">
+                    <span class="material-symbols-outlined text-sm">delete</span> Delete
+                </button>
+            </form>
         </div>
     </div>
     {% endfor %}
