@@ -243,10 +243,13 @@ def inventory():
 
     return render_template('3_inventory_manager.html', form=form, tyres=tyres)
 
-@app.route('/admin/inventory/delete/<int:id>', methods=['POST'])
+@app.route('/admin/inventory/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete_tyre(id):
-    tyre = Tyre.query.get_or_404(id)
+    tyre = Tyre.query.get(id)
+    if not tyre:
+        flash('Tyre not found or already deleted.', 'error')
+        return redirect(url_for('inventory'))
     db.session.delete(tyre)
     db.session.commit()
     flash('Tyre deleted successfully!', 'success')
@@ -395,10 +398,13 @@ def edit_dispatch(dispatch_id):
         
     return render_template('11_admin_dispatch_edit.html', form=form, dispatch=dispatch)
 
-@app.route('/admin/dispatch/delete/<int:dispatch_id>', methods=['POST'])
+@app.route('/admin/dispatch/delete/<int:dispatch_id>', methods=['GET', 'POST'])
 @login_required
 def delete_dispatch(dispatch_id):
-    dispatch = DispatchActivity.query.get_or_404(dispatch_id)
+    dispatch = DispatchActivity.query.get(dispatch_id)
+    if not dispatch:
+        flash('Dispatch record not found or already deleted.', 'error')
+        return redirect(url_for('admin_dispatch'))
     db.session.delete(dispatch)
     db.session.commit()
     flash('Dispatch record deleted successfully.', 'success')
