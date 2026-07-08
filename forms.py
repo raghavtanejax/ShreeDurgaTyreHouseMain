@@ -10,7 +10,8 @@ class LoginForm(FlaskForm):
 
 class TyreForm(FlaskForm):
     model = StringField('Model', validators=[Optional(), Length(max=150)])
-    brand = SelectField('Brand', choices=[('MRF', 'MRF'), ('Apollo', 'Apollo'), ('CEAT', 'CEAT'), ('Michelin', 'Michelin'), ('Bridgestone', 'Bridgestone'), ('Other', 'Other')], validators=[Optional()])
+    brand = SelectField('Brand', choices=[('APOLLO', 'APOLLO'), ('BIRLA', 'BIRLA'), ('CEAT', 'CEAT'), ('JK', 'JK'), ('MRF', 'MRF'), ('Other', 'Other')], validators=[Optional()])
+    custom_brand = StringField('Custom Brand', validators=[Optional(), Length(max=150)])
     category = SelectField('Category', choices=[('Bike & Scooter', 'Bike & Scooter'), ('Car & SUV', 'Car & SUV'), ('Truck & Crane', 'Truck & Crane'), ('Other', 'Other')], validators=[Optional()])
     mrp_price = FloatField('MRP Price (₹)', validators=[Optional()])
     price = FloatField('Price (₹)', validators=[Optional()])

@@ -208,9 +208,12 @@ def inventory():
                 flash(f'Cloudinary Upload Error: {error_msg}', 'error')
                 return redirect(url_for('inventory'))
                 
+        brand_val = form.brand.data
+        if brand_val == 'Other' and form.custom_brand.data:
+            brand_val = form.custom_brand.data.strip()
         tyre = Tyre(
             model=form.model.data,
-            brand=form.brand.data,
+            brand=brand_val,
             category=form.category.data,
             price=form.price.data,
             mrp_price=form.mrp_price.data,
@@ -255,8 +258,11 @@ def edit_tyre(id):
     tyre = Tyre.query.get_or_404(id)
     form = TyreForm()
     if form.validate_on_submit():
+        brand_val = form.brand.data
+        if brand_val == 'Other' and form.custom_brand.data:
+            brand_val = form.custom_brand.data.strip()
         tyre.model = form.model.data
-        tyre.brand = form.brand.data
+        tyre.brand = brand_val
         tyre.category = form.category.data
         tyre.price = form.price.data
         tyre.mrp_price = form.mrp_price.data

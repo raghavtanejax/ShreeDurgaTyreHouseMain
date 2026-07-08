@@ -119,7 +119,11 @@
     </div>
     <div>
         {{ form.brand.label(class="block font-label-caps text-steel-gray mb-1") }}
-        {{ form.brand(class="w-full bg-surface-container-low border border-steel-gray/40 rounded px-3 py-2") }}
+        {{ form.brand(class="w-full bg-surface-container-low border border-steel-gray/40 rounded px-3 py-2", onchange="toggleCustomBrand()") }}
+    </div>
+    <div id="custom_brand_container" style="display: none;">
+        {{ form.custom_brand.label(class="block font-label-caps text-steel-gray mb-1") }}
+        {{ form.custom_brand(class="w-full bg-surface-container-low border border-steel-gray/40 rounded px-3 py-2", placeholder="Type brand name here") }}
     </div>
     <div>
         {{ form.category.label(class="block font-label-caps text-steel-gray mb-1") }}
@@ -164,6 +168,21 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    toggleCustomBrand();
+});
+
+function toggleCustomBrand() {
+    var brandSelect = document.getElementById('brand');
+    var customBrandContainer = document.getElementById('custom_brand_container');
+    if (brandSelect && brandSelect.value === 'Other') {
+        customBrandContainer.style.display = 'block';
+    } else {
+        if (customBrandContainer) customBrandContainer.style.display = 'none';
+        var customBrandInput = document.getElementById('custom_brand');
+        if (customBrandInput) customBrandInput.value = '';
+    }
+}
 function scrollToForm() {
     document.getElementById('tyre-form-container').scrollIntoView({behavior: 'smooth'});
 }
@@ -176,7 +195,20 @@ function editTyre(id, model, brand, category, price, mrp_price, stock, sku) {
     
     // Populate fields
     document.getElementById('model').value = model;
-    document.getElementById('brand').value = brand;
+    
+    let brandSelect = document.getElementById('brand');
+    let optionExists = Array.from(brandSelect.options).some(opt => opt.value === brand);
+    
+    if (optionExists) {
+        brandSelect.value = brand;
+        document.getElementById('custom_brand_container').style.display = 'none';
+        document.getElementById('custom_brand').value = '';
+    } else {
+        brandSelect.value = 'Other';
+        document.getElementById('custom_brand_container').style.display = 'block';
+        document.getElementById('custom_brand').value = brand;
+    }
+    
     document.getElementById('category').value = category;
     document.getElementById('price').value = price;
     document.getElementById('mrp_price').value = mrp_price !== 'None' ? mrp_price : '';
@@ -194,6 +226,7 @@ function cancelEdit() {
     document.getElementById('tyre-form').reset();
     document.getElementById('form-submit-btn').value = 'Add Tyre';
     document.getElementById('cancel-edit-btn').classList.add('hidden');
+    toggleCustomBrand();
 }
 
 function filterInventory() {
