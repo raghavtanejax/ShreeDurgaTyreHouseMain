@@ -82,14 +82,16 @@
 </div>
 </section>
 <!-- Map Section -->
-<section class="w-full h-[500px] bg-surface-dim relative border-b-4 border-safety-orange">
-<img class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A highly detailed overhead map view showing an industrial district with roads and a clear location marker. The style is modern, sharp, and uses a high-contrast corporate palette with subtle gray tones and a bright orange accent pinpoint indicating the tyre shop location." data-location="Ambala" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiO_1jJittiWOteT5XH8WzrPzmdVIte8iB37G81sXL1F-zcdubHSPCDmryXfDo3UyYCV9tDgB3U0YelouPbcsknTwj2OutH2wshuXmH6ktVsv346cG7lLd0RNSe2wggvR8tidug-a3lUlm-91vDDt5b3U8K8ZF5yWFRmNCsLs-pCgoVr6tJ2lxod8Wwqn-1wnDE7ky1tru4y7el43b-fdoK1-sgZ5KxfnIqZXOZRWUfd3JwJWpEthoQt6JPUU-ohkGvOwQEuFyYRXN">
+<section class="w-full h-[500px] bg-surface-dim relative border-b-4 border-safety-orange overflow-hidden">
+<a href="{{ settings.google_maps_url }}" target="_blank" class="block w-full h-full relative group">
+<img class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply transition-transform duration-500 group-hover:scale-105" data-alt="A highly detailed overhead map view showing an industrial district with roads and a clear location marker. The style is modern, sharp, and uses a high-contrast corporate palette with subtle gray tones and a bright orange accent pinpoint indicating the tyre shop location." data-location="Ambala" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiO_1jJittiWOteT5XH8WzrPzmdVIte8iB37G81sXL1F-zcdubHSPCDmryXfDo3UyYCV9tDgB3U0YelouPbcsknTwj2OutH2wshuXmH6ktVsv346cG7lLd0RNSe2wggvR8tidug-a3lUlm-91vDDt5b3U8K8ZF5yWFRmNCsLs-pCgoVr6tJ2lxod8Wwqn-1wnDE7ky1tru4y7el43b-fdoK1-sgZ5KxfnIqZXOZRWUfd3JwJWpEthoQt6JPUU-ohkGvOwQEuFyYRXN">
 <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-<div class="bg-surface p-4 rounded shadow-[4px_4px_0_0_#000000] border border-steel-gray/20 flex flex-col items-center">
+<div class="bg-surface p-4 rounded shadow-[4px_4px_0_0_#000000] border border-steel-gray/20 flex flex-col items-center transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-[4px_8px_0_0_#000000]">
 <span class="material-symbols-outlined text-safety-orange text-4xl mb-2" style="font-variation-settings: &quot;FILL&quot; 1;">location_on</span>
 <span class="font-bold text-tertiary">Shree Durga Tyre House</span>
 </div>
 </div>
+</a>
 </section>
 
 {% endblock %}
