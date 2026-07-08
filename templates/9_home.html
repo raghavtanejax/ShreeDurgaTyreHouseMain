@@ -53,7 +53,7 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
 <!-- Card 1 -->
 <a href="{{ url_for('truck_tyres') }}" class="block bg-surface-container-lowest border border-steel-gray/20 rounded-lg p-6 hover:shadow-[0_4px_0_0_#000000] hover:-translate-y-1 transition-all duration-300 group">
-<div class="aspect-[1.67] w-full mb-6 overflow-hidden rounded bg-surface-container relative border border-steel-gray/10">
+<div class="aspect-square w-full mb-6 overflow-hidden rounded bg-surface-container relative border border-steel-gray/10">
 <img alt="Types of Tyres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A detailed, high-resolution shot of various types of vehicle tyres arranged in an industrial workshop setting, emphasizing the thick treads and durable rubber construction suitable for trucks and commercial vehicles." src="{{ settings.truck_category_image if settings.truck_category_image else url_for('static', filename='images/5_truck_crane_tyres.png') }}">
 <div class="absolute top-4 left-4 bg-safety-orange text-tertiary font-label-caps px-3 py-1 rounded-sm shadow-sm">Heavy Duty</div>
 </div>
