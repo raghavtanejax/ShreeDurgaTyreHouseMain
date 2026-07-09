@@ -422,16 +422,6 @@ def delete_dispatch(dispatch_id):
     flash('Dispatch record deleted successfully.', 'success')
     return redirect(url_for('admin_dispatch'))
 
-@app.route('/sitemap.xml')
-def sitemap():
-    base_url = "https://www.shreedurgatyrehouse.in"
-    pages = ['index', 'categories', 'truck_tyres', 'car_tyres', 'bike_tyres', 'contact']
-    xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    for page in pages:
-        xml.append(f'<url><loc>{base_url}{url_for(page)}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>')
-    xml.append('</urlset>')
-    return Response('\n'.join(xml), mimetype='application/xml')
-
 @app.route('/robots.txt')
 def robots():
     content = "User-agent: *\nDisallow: /admin/\nSitemap: https://www.shreedurgatyrehouse.in/sitemap.xml\n"
