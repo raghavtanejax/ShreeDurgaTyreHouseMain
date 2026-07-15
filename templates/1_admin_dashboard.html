@@ -81,51 +81,22 @@
 </a>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
-<!-- Brand 1: MRF -->
+{% for brand, categories in brand_inventory.items() %}
 <div class="bg-surface-container-low p-4 level-1-border hover:bg-surface-container transition-colors">
 <div class="flex items-center gap-3 mb-3">
-<div class="w-10 h-10 bg-primary text-white flex items-center justify-center font-headline-md text-headline-md font-bold rounded-sm">M</div>
-<span class="font-headline-lg text-headline-lg-mobile text-primary">MRF</span>
+<div class="w-10 h-10 bg-primary text-white flex items-center justify-center font-headline-md text-headline-md font-bold rounded-sm">{{ brand[0]|upper if brand else '?' }}</div>
+<span class="font-headline-lg text-headline-lg-mobile text-primary">{{ brand }}</span>
 </div>
-<div class="flex justify-between items-end border-b border-steel-gray/20 pb-2 mb-2">
-<span class="font-body-md text-body-md text-steel-gray">Heavy Duty</span>
-<span class="font-body-lg text-body-lg font-bold">1,240</span>
+{% for category, count in categories.items() %}
+<div class="flex justify-between items-end {% if not loop.last %}border-b border-steel-gray/20 pb-2 mb-2{% endif %}">
+<span class="font-body-md text-body-md text-steel-gray">{{ category }}</span>
+<span class="font-body-lg text-body-lg font-bold">{{ "{:,}".format(count) }}</span>
 </div>
-<div class="flex justify-between items-end">
-<span class="font-body-md text-body-md text-steel-gray">Passenger</span>
-<span class="font-body-lg text-body-lg font-bold">850</span>
+{% endfor %}
 </div>
-</div>
-<!-- Brand 2: Apollo -->
-<div class="bg-surface-container-low p-4 level-1-border hover:bg-surface-container transition-colors">
-<div class="flex items-center gap-3 mb-3">
-<div class="w-10 h-10 bg-primary text-white flex items-center justify-center font-headline-md text-headline-md font-bold rounded-sm">A</div>
-<span class="font-headline-lg text-headline-lg-mobile text-primary">Apollo</span>
-</div>
-<div class="flex justify-between items-end border-b border-steel-gray/20 pb-2 mb-2">
-<span class="font-body-md text-body-md text-steel-gray">Commercial</span>
-<span class="font-body-lg text-body-lg font-bold">980</span>
-</div>
-<div class="flex justify-between items-end">
-<span class="font-body-md text-body-md text-steel-gray">Two-Wheeler</span>
-<span class="font-body-lg text-body-lg font-bold">1,420</span>
-</div>
-</div>
-<!-- Brand 3: Birla -->
-<div class="bg-surface-container-low p-4 level-1-border hover:bg-surface-container transition-colors">
-<div class="flex items-center gap-3 mb-3">
-<div class="w-10 h-10 bg-primary text-white flex items-center justify-center font-headline-md text-headline-md font-bold rounded-sm">B</div>
-<span class="font-headline-lg text-headline-lg-mobile text-primary">Birla</span>
-</div>
-<div class="flex justify-between items-end border-b border-steel-gray/20 pb-2 mb-2">
-<span class="font-body-md text-body-md text-steel-gray">Agricultural</span>
-<span class="font-body-lg text-body-lg font-bold">450</span>
-</div>
-<div class="flex justify-between items-end">
-<span class="font-body-md text-body-md text-steel-gray">Industrial</span>
-<span class="font-body-lg text-body-lg font-bold">320</span>
-</div>
-</div>
+{% else %}
+<div class="col-span-full text-steel-gray">No inventory data available.</div>
+{% endfor %}
 </div>
 </div>
 <!-- Recent Activity Table (Industrial Style) -->

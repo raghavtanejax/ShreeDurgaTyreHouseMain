@@ -183,12 +183,26 @@ def admin_dashboard():
     todays_dispatches_count = DispatchActivity.query.filter(DispatchActivity.date_created >= today_start).count()
     recent_dispatches = DispatchActivity.query.order_by(DispatchActivity.date_created.desc()).limit(5).all()
     
+    # Inventory by brand and category
+    inventory_data = db.session.query(
+        Tyre.brand, Tyre.category, db.func.sum(Tyre.stock)
+    ).group_by(Tyre.brand, Tyre.category).all()
+    
+    brand_inventory = {}
+    for brand, category, total_stock in inventory_data:
+        b = brand if brand else 'Unknown'
+        c = category if category else 'Unknown'
+        if b not in brand_inventory:
+            brand_inventory[b] = {}
+        brand_inventory[b][c] = int(total_stock) if total_stock else 0
+    
     return render_template('1_admin_dashboard.html', 
                            total_inventory=total_inventory, 
                            total_stock=total_stock, 
                            low_stock=low_stock,
                            todays_dispatches_count=todays_dispatches_count,
-                           recent_dispatches=recent_dispatches)
+                           recent_dispatches=recent_dispatches,
+                           brand_inventory=brand_inventory)
 
 @app.route('/admin/inventory', methods=['GET', 'POST'])
 @login_required
