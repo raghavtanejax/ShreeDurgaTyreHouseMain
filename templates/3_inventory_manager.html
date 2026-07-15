@@ -151,6 +151,7 @@
     <div class="md:col-span-2 lg:col-span-3">
         {{ form.images.label(class="block font-label-caps text-steel-gray mb-1") }}
         {{ form.images(class="w-full bg-surface-container-low border border-steel-gray/40 rounded px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-surface-container file:text-safety-orange hover:file:bg-surface-container-highest cursor-pointer", multiple="multiple") }}
+        <div id="image-preview-container" class="mt-4 flex flex-wrap gap-4"></div>
     </div>
     <div class="md:col-span-2 lg:col-span-3 mt-4">
         {{ form.submit(id="form-submit-btn", class="bg-safety-orange text-tertiary font-bold px-6 py-2 rounded hover:bg-secondary-container transition-colors") }}
@@ -171,9 +172,77 @@
 </div>
 
 <script>
+let selectedFiles = [];
+
 document.addEventListener('DOMContentLoaded', function() {
     toggleCustomBrand();
+    
+    const fileInput = document.getElementById('images');
+    if (fileInput) {
+        fileInput.value = ''; // clear on load
+        
+        fileInput.addEventListener('change', function(e) {
+            const newFiles = Array.from(e.target.files);
+            
+            newFiles.forEach(file => {
+                // Prevent adding duplicates
+                if (!selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    selectedFiles.push(file);
+                }
+            });
+            
+            updateFileInputAndPreview();
+        });
+    }
 });
+
+function updateFileInputAndPreview() {
+    const fileInput = document.getElementById('images');
+    const container = document.getElementById('image-preview-container');
+    
+    // Update actual file input with DataTransfer
+    const dt = new DataTransfer();
+    selectedFiles.forEach(file => dt.items.add(file));
+    fileInput.files = dt.files;
+    
+    // Render previews
+    container.innerHTML = '';
+    selectedFiles.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const div = document.createElement('div');
+            div.className = 'relative w-24 h-24 border border-steel-gray/30 rounded overflow-hidden group bg-surface';
+            
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'w-full h-full object-cover';
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '<span class="material-symbols-outlined text-sm">close</span>';
+            removeBtn.className = 'absolute top-1 right-1 bg-error text-on-error rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer shadow-sm';
+            removeBtn.type = 'button'; // Prevent form submission
+            removeBtn.onclick = function(ev) {
+                ev.preventDefault();
+                removeFile(index);
+            };
+            
+            const seqBadge = document.createElement('div');
+            seqBadge.innerText = (index + 1);
+            seqBadge.className = 'absolute bottom-1 left-1 bg-black/70 text-white text-[10px] font-bold px-1.5 py-0.5 rounded';
+            
+            div.appendChild(img);
+            div.appendChild(removeBtn);
+            div.appendChild(seqBadge);
+            container.appendChild(div);
+        }
+        reader.readAsDataURL(file);
+    });
+}
+
+function removeFile(index) {
+    selectedFiles.splice(index, 1);
+    updateFileInputAndPreview();
+}
 
 function toggleCustomBrand() {
     var brandSelect = document.getElementById('brand');
@@ -229,6 +298,8 @@ function cancelEdit() {
     document.getElementById('tyre-form').reset();
     document.getElementById('form-submit-btn').value = 'Add Tyre';
     document.getElementById('cancel-edit-btn').classList.add('hidden');
+    selectedFiles = [];
+    updateFileInputAndPreview();
     toggleCustomBrand();
 }
 
