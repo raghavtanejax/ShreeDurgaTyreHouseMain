@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FloatField, IntegerField, SelectField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, FloatField, IntegerField, SelectField, BooleanField, MultipleFileField
 from wtforms.validators import DataRequired, Length, Optional
 from flask_wtf.file import FileField, FileAllowed
 
@@ -17,7 +17,7 @@ class TyreForm(FlaskForm):
     price = FloatField('Price (₹)', validators=[Optional()])
     stock = IntegerField('Stock Level', validators=[Optional()])
     sku = StringField('SKU', validators=[Optional(), Length(max=50)])
-    image = FileField('Tyre Image', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'heic', 'heif', 'bmp', 'tiff'], 'Images only!')])
+    images = MultipleFileField('Tyre Images', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'heic', 'heif', 'bmp', 'tiff'], 'Images only!')])
     submit = SubmitField('Save Tyre')
 
 class QuoteForm(FlaskForm):

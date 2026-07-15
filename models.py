@@ -23,6 +23,8 @@ class Tyre(db.Model):
     sku = db.Column(db.String(50), unique=True, nullable=True)
     image_filename = db.Column(db.String(255), nullable=True)
     date_added = db.Column(db.DateTime, default=get_ist_time)
+    
+    images = db.relationship('TyreImage', backref='tyre', lazy=True, cascade="all, delete-orphan", order_by="TyreImage.sequence")
 
     @property
     def stock_status(self):
@@ -33,6 +35,12 @@ class Tyre(db.Model):
         else:
             return "In Stock"
 
+    @property
+    def primary_image(self):
+        if self.images:
+            return self.images[0].image_filename
+        return self.image_filename
+
 class QuoteRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(150), nullable=False)
@@ -40,6 +48,13 @@ class QuoteRequest(db.Model):
     vehicle_type = db.Column(db.String(100), nullable=False)
     message = db.Column(db.Text, nullable=False)
     date_submitted = db.Column(db.DateTime, default=get_ist_time)
+
+class TyreImage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tyre_id = db.Column(db.Integer, db.ForeignKey('tyre.id'), nullable=False)
+    image_filename = db.Column(db.String(255), nullable=False)
+    sequence = db.Column(db.Integer, default=0)
+    date_added = db.Column(db.DateTime, default=get_ist_time)
 
 class SiteSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)

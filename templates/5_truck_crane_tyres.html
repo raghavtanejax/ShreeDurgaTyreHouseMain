@@ -53,11 +53,23 @@
     {% for tyre in tyres %}
     <article class="bg-surface border border-steel-gray/20 rounded hover:cut-shadow transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
         <div class="absolute top-4 left-4 bg-tertiary text-on-tertiary text-xs font-label-caps px-2 py-1 z-10">{{ tyre.brand }}</div>
-        <div class="h-64 bg-surface-container flex items-center justify-center p-6 relative">
-            {% if tyre.image_filename %}
-            <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ tyre.image_filename }}" alt="{{ tyre.model }}"/>
+        <div class="h-64 bg-surface-container flex items-center justify-center p-6 relative overflow-hidden group/carousel">
+            {% if tyre.images and tyre.images|length > 1 %}
+                <!-- Carousel container -->
+                <div class="flex transition-transform duration-500 ease-in-out w-full h-full carousel-inner" id="carousel-{{ tyre.id }}">
+                    {% for img in tyre.images %}
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center">
+                        <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ img.image_filename }}" alt="{{ tyre.model }}"/>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Controls -->
+                <button onclick="prevSlide('carousel-{{ tyre.id }}', {{ tyre.images|length }})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-surface text-primary p-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity cut-shadow-sm hover:text-safety-orange z-10"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+                <button onclick="nextSlide('carousel-{{ tyre.id }}', {{ tyre.images|length }})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-surface text-primary p-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity cut-shadow-sm hover:text-safety-orange z-10"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+            {% elif tyre.primary_image %}
+                <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ tyre.primary_image }}" alt="{{ tyre.model }}"/>
             {% else %}
-            <div class="text-steel-gray font-label-caps">No Image</div>
+                <div class="text-steel-gray font-label-caps">No Image</div>
             {% endif %}
         </div>
         <div class="p-6 flex-grow flex flex-col">
@@ -126,5 +138,24 @@
 </div>
 </div>
 </section>
+
+<script>
+const carouselStates = {};
+function updateCarousel(id, count) {
+    const el = document.getElementById(id);
+    const state = carouselStates[id] || 0;
+    el.style.transform = `translateX(-${state * 100}%)`;
+}
+function prevSlide(id, count) {
+    if(!carouselStates[id]) carouselStates[id] = 0;
+    carouselStates[id] = (carouselStates[id] - 1 + count) % count;
+    updateCarousel(id, count);
+}
+function nextSlide(id, count) {
+    if(!carouselStates[id]) carouselStates[id] = 0;
+    carouselStates[id] = (carouselStates[id] + 1) % count;
+    updateCarousel(id, count);
+}
+</script>
 
 {% endblock %}

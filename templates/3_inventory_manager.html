@@ -53,8 +53,8 @@
 <div class="bg-surface border border-steel-gray/20 rounded-lg p-4 md:p-6 lg:p-0 lg:border-none lg:rounded-none lg:bg-transparent flex flex-col lg:grid lg:grid-cols-12 lg:gap-gutter items-center lg:bg-surface lg:border lg:border-steel-gray/20 lg:rounded table-row-hover transition-all duration-200">
 <div class="lg:col-span-2 flex justify-start w-full lg:w-auto mb-4 lg:mb-0 lg:p-4">
 <div class="w-16 h-16 bg-surface-container-low rounded border border-steel-gray/10 flex items-center justify-center p-2 overflow-hidden">
-{% if tyre.image_filename %}
-<img src="{% if tyre.image_filename.startswith('http') %}{{ tyre.image_filename }}{% else %}{{ url_for('static', filename='images/uploads/' + tyre.image_filename) }}{% endif %}" alt="{{ tyre.model }}" class="max-w-full max-h-full object-contain">
+{% if tyre.primary_image %}
+<img src="{% if tyre.primary_image.startswith('http') %}{{ tyre.primary_image }}{% else %}{{ url_for('static', filename='images/uploads/' + tyre.primary_image) }}{% endif %}" alt="{{ tyre.model }}" class="max-w-full max-h-full object-contain">
 {% else %}
 <span class="font-headline-md font-bold text-primary">{{ tyre.brand[0] }}</span>
 {% endif %}
@@ -94,6 +94,9 @@
 <button onclick="editTyre('{{ tyre.id }}', '{{ tyre.model }}', '{{ tyre.brand }}', '{{ tyre.category }}', '{{ tyre.price }}', '{{ tyre.mrp_price or "" }}', '{{ tyre.stock }}', '{{ tyre.sku }}')" class="p-2 text-steel-gray hover:text-safety-orange hover:bg-surface-container rounded transition-colors" title="Edit">
 <span class="material-symbols-outlined">edit_square</span>
 </button>
+<a href="{{ url_for('manage_tyre_images', id=tyre.id) }}" class="p-2 text-steel-gray hover:text-service-blue hover:bg-service-blue/10 rounded transition-colors" title="Manage Images">
+<span class="material-symbols-outlined">collections</span>
+</a>
 <form method="POST" action="{{ url_for('delete_tyre', id=tyre.id) }}" onsubmit="return confirm('Are you sure you want to delete this tyre?');">
 <button type="submit" class="p-2 text-steel-gray hover:text-error hover:bg-error-container/20 rounded transition-colors" title="Delete">
 <span class="material-symbols-outlined">delete</span>
@@ -146,8 +149,8 @@
         {{ form.sku(class="w-full bg-surface-container-low border border-steel-gray/40 rounded px-3 py-2") }}
     </div>
     <div class="md:col-span-2 lg:col-span-3">
-        {{ form.image.label(class="block font-label-caps text-steel-gray mb-1") }}
-        {{ form.image(class="w-full bg-surface-container-low border border-steel-gray/40 rounded px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-surface-container file:text-safety-orange hover:file:bg-surface-container-highest cursor-pointer") }}
+        {{ form.images.label(class="block font-label-caps text-steel-gray mb-1") }}
+        {{ form.images(class="w-full bg-surface-container-low border border-steel-gray/40 rounded px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-surface-container file:text-safety-orange hover:file:bg-surface-container-highest cursor-pointer", multiple="multiple") }}
     </div>
     <div class="md:col-span-2 lg:col-span-3 mt-4">
         {{ form.submit(id="form-submit-btn", class="bg-safety-orange text-tertiary font-bold px-6 py-2 rounded hover:bg-secondary-container transition-colors") }}

@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, url_for, flash, request, Response
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
-from models import db, User, Tyre, QuoteRequest, SiteSettings, DispatchActivity
+from models import db, User, Tyre, TyreImage, QuoteRequest, SiteSettings, DispatchActivity
 from forms import LoginForm, TyreForm, QuoteForm, SettingsForm, DispatchForm
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
@@ -195,22 +195,6 @@ def admin_dashboard():
 def inventory():
     form = TyreForm()
     if form.validate_on_submit():
-        filename = None
-        if form.image.data and form.image.data.filename:
-            # Upload to Cloudinary
-            try:
-                upload_result = cloudinary.uploader.upload(form.image.data)
-                filename = upload_result.get('secure_url')
-            except Exception as e:
-                error_msg = str(e)
-                if 'API key' in error_msg:
-                    error_msg = "Unknown API Key. Please check your Vercel Environment Variables."
-                flash(f'Cloudinary Upload Error: {error_msg}', 'error')
-                return redirect(url_for('inventory'))
-                
-        brand_val = form.brand.data
-        if brand_val == 'Other' and form.custom_brand.data:
-            brand_val = form.custom_brand.data.strip()
         tyre = Tyre(
             model=form.model.data,
             brand=brand_val,
@@ -218,11 +202,29 @@ def inventory():
             price=form.price.data,
             mrp_price=form.mrp_price.data,
             stock=form.stock.data,
-            sku=form.sku.data,
-            image_filename=filename
+            sku=form.sku.data
         )
         db.session.add(tyre)
         try:
+            db.session.flush() # get tyre.id
+            
+            # Handle multiple images
+            files = request.files.getlist('images')
+            seq = 0
+            for file in files:
+                if file and file.filename:
+                    try:
+                        upload_result = cloudinary.uploader.upload(file)
+                        img_url = upload_result.get('secure_url')
+                        tyre_img = TyreImage(tyre_id=tyre.id, image_filename=img_url, sequence=seq)
+                        db.session.add(tyre_img)
+                        seq += 1
+                        # Maintain backward compatibility for first image
+                        if seq == 1:
+                            tyre.image_filename = img_url
+                    except Exception as e:
+                        flash(f'Cloudinary Upload Error for {file.filename}: {str(e)}', 'error')
+                        
             db.session.commit()
             flash('Tyre added successfully!', 'success')
             return redirect(url_for('inventory'))
@@ -271,16 +273,28 @@ def edit_tyre(id):
         tyre.mrp_price = form.mrp_price.data
         tyre.stock = form.stock.data
         tyre.sku = form.sku.data
-        if form.image.data and form.image.data.filename:
-            try:
-                upload_result = cloudinary.uploader.upload(form.image.data)
-                tyre.image_filename = upload_result.get('secure_url')
-            except Exception as e:
-                error_msg = str(e)
-                if 'API key' in error_msg:
-                    error_msg = "Unknown API Key. Please check your Vercel Environment Variables."
-                flash(f'Cloudinary Upload Error: {error_msg}', 'error')
-                return redirect(url_for('inventory'))
+        
+        # Handle new images added during edit
+        files = request.files.getlist('images')
+        if files and any(f.filename for f in files):
+            # get current max sequence
+            max_seq = db.session.query(db.func.max(TyreImage.sequence)).filter_by(tyre_id=tyre.id).scalar()
+            seq = (max_seq + 1) if max_seq is not None else 0
+            
+            for file in files:
+                if file and file.filename:
+                    try:
+                        upload_result = cloudinary.uploader.upload(file)
+                        img_url = upload_result.get('secure_url')
+                        tyre_img = TyreImage(tyre_id=tyre.id, image_filename=img_url, sequence=seq)
+                        db.session.add(tyre_img)
+                        # Maintain backward compatibility
+                        if not tyre.image_filename:
+                            tyre.image_filename = img_url
+                        seq += 1
+                    except Exception as e:
+                        flash(f'Cloudinary Upload Error for {file.filename}: {str(e)}', 'error')
+
         try:
             db.session.commit()
             flash('Tyre updated successfully!', 'success')
@@ -288,6 +302,60 @@ def edit_tyre(id):
             db.session.rollback()
             flash('SKU already exists!', 'error')
     return redirect(url_for('inventory'))
+
+@app.route('/admin/inventory/<int:id>/images', methods=['GET'])
+@login_required
+def manage_tyre_images(id):
+    tyre = Tyre.query.get_or_404(id)
+    return render_template('12_manage_tyre_images.html', tyre=tyre)
+
+@app.route('/admin/inventory/<int:id>/images/upload', methods=['POST'])
+@login_required
+def upload_tyre_images(id):
+    tyre = Tyre.query.get_or_404(id)
+    files = request.files.getlist('images')
+    if files and any(f.filename for f in files):
+        max_seq = db.session.query(db.func.max(TyreImage.sequence)).filter_by(tyre_id=tyre.id).scalar()
+        seq = (max_seq + 1) if max_seq is not None else 0
+        for file in files:
+            if file and file.filename:
+                try:
+                    upload_result = cloudinary.uploader.upload(file)
+                    img_url = upload_result.get('secure_url')
+                    tyre_img = TyreImage(tyre_id=tyre.id, image_filename=img_url, sequence=seq)
+                    db.session.add(tyre_img)
+                    if not tyre.image_filename:
+                        tyre.image_filename = img_url
+                    seq += 1
+                except Exception as e:
+                    flash(f'Cloudinary Upload Error for {file.filename}: {str(e)}', 'error')
+        db.session.commit()
+        flash('Images uploaded successfully.', 'success')
+    else:
+        flash('No images selected.', 'error')
+    return redirect(url_for('manage_tyre_images', id=tyre.id))
+
+@app.route('/admin/inventory/image/<int:img_id>/delete', methods=['POST'])
+@login_required
+def delete_tyre_image(img_id):
+    img = TyreImage.query.get_or_404(img_id)
+    tyre_id = img.tyre_id
+    db.session.delete(img)
+    db.session.commit()
+    flash('Image deleted successfully.', 'success')
+    return redirect(url_for('manage_tyre_images', id=tyre_id))
+
+@app.route('/admin/inventory/<int:id>/images/reorder', methods=['POST'])
+@login_required
+def reorder_tyre_images(id):
+    tyre = Tyre.query.get_or_404(id)
+    order = request.json.get('order', [])
+    for idx, img_id in enumerate(order):
+        img = TyreImage.query.get(img_id)
+        if img and img.tyre_id == tyre.id:
+            img.sequence = idx
+    db.session.commit()
+    return {'success': True}
 
 @app.route('/admin/quotes')
 @login_required
