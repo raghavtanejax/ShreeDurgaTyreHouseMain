@@ -195,6 +195,10 @@ def admin_dashboard():
 def inventory():
     form = TyreForm()
     if form.validate_on_submit():
+        brand_val = form.brand.data
+        if brand_val == 'Other' and form.custom_brand.data:
+            brand_val = form.custom_brand.data.strip()
+        
         tyre = Tyre(
             model=form.model.data,
             brand=brand_val,
