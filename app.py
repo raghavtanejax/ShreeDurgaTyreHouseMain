@@ -19,6 +19,24 @@ cloudinary.config(
   api_secret = os.environ.get('CLOUDINARY_API_SECRET')
 )
 
+def extract_public_id(url):
+    """Extracts Cloudinary public ID from a secure_url."""
+    if not url:
+        return None
+    try:
+        upload_idx = url.find('/upload/')
+        if upload_idx == -1:
+            return None
+        after_upload = url[upload_idx + len('/upload/'):]
+        parts = after_upload.split('/')
+        if parts[0].startswith('v') and parts[0][1:].isdigit():
+            parts = parts[1:]
+        public_id_with_ext = '/'.join(parts)
+        public_id = public_id_with_ext.rsplit('.', 1)[0]
+        return public_id
+    except Exception:
+        return None
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'shreedurgatyrehouse_super_secret_key'
 
@@ -270,6 +288,27 @@ def delete_tyre(id):
     if not tyre:
         flash('Tyre not found or already deleted.', 'error')
         return redirect(url_for('inventory'))
+        
+    if tyre.images:
+        for img in tyre.images:
+            if img.image_filename:
+                public_id = extract_public_id(img.image_filename)
+                if public_id:
+                    try:
+                        cloudinary.uploader.destroy(public_id)
+                    except Exception as e:
+                        print(f"Cloudinary deletion error: {str(e)}")
+    
+    if tyre.image_filename:
+        already_deleted = any((img.image_filename == tyre.image_filename) for img in tyre.images) if tyre.images else False
+        if not already_deleted:
+            public_id = extract_public_id(tyre.image_filename)
+            if public_id:
+                try:
+                    cloudinary.uploader.destroy(public_id)
+                except Exception as e:
+                    print(f"Cloudinary deletion error: {str(e)}")
+                    
     db.session.delete(tyre)
     db.session.commit()
     flash('Tyre deleted successfully!', 'success')
@@ -358,6 +397,15 @@ def upload_tyre_images(id):
 def delete_tyre_image(img_id):
     img = TyreImage.query.get_or_404(img_id)
     tyre_id = img.tyre_id
+    
+    if img.image_filename:
+        public_id = extract_public_id(img.image_filename)
+        if public_id:
+            try:
+                cloudinary.uploader.destroy(public_id)
+            except Exception as e:
+                print(f"Cloudinary deletion error: {str(e)}")
+                
     db.session.delete(img)
     db.session.commit()
     flash('Image deleted successfully.', 'success')
@@ -407,15 +455,35 @@ def settings():
     if form.validate_on_submit():
         try:
             if hasattr(form.home_shop_image.data, 'filename') and form.home_shop_image.data.filename:
+                if settings.home_shop_image:
+                    public_id = extract_public_id(settings.home_shop_image)
+                    if public_id:
+                        try: cloudinary.uploader.destroy(public_id)
+                        except: pass
                 upload_result = cloudinary.uploader.upload(form.home_shop_image.data)
                 settings.home_shop_image = upload_result.get('secure_url')
             if hasattr(form.truck_category_image.data, 'filename') and form.truck_category_image.data.filename:
+                if settings.truck_category_image:
+                    public_id = extract_public_id(settings.truck_category_image)
+                    if public_id:
+                        try: cloudinary.uploader.destroy(public_id)
+                        except: pass
                 upload_result = cloudinary.uploader.upload(form.truck_category_image.data)
                 settings.truck_category_image = upload_result.get('secure_url')
             if hasattr(form.car_category_image.data, 'filename') and form.car_category_image.data.filename:
+                if settings.car_category_image:
+                    public_id = extract_public_id(settings.car_category_image)
+                    if public_id:
+                        try: cloudinary.uploader.destroy(public_id)
+                        except: pass
                 upload_result = cloudinary.uploader.upload(form.car_category_image.data)
                 settings.car_category_image = upload_result.get('secure_url')
             if hasattr(form.bike_category_image.data, 'filename') and form.bike_category_image.data.filename:
+                if settings.bike_category_image:
+                    public_id = extract_public_id(settings.bike_category_image)
+                    if public_id:
+                        try: cloudinary.uploader.destroy(public_id)
+                        except: pass
                 upload_result = cloudinary.uploader.upload(form.bike_category_image.data)
                 settings.bike_category_image = upload_result.get('secure_url')
         except Exception as e:
