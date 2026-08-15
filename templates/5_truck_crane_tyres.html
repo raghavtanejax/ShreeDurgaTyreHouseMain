@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block title %}Heavy Duty Truck, Bus & Crane Tyres in Saharanpur{% endblock %}
+{% block meta_description %}Buy premium truck, bus, and commercial tyres in Saharanpur. Best prices on MRF, Apollo, and Birla heavy-duty tyres.{% endblock %}
 {% block content %}
 
 <!-- Hero Section -->
@@ -23,7 +25,7 @@
 </div>
 </div>
 <div class="relative h-[400px] md:h-[500px] w-full bg-surface-container border border-steel-gray/20 rounded cut-shadow overflow-hidden">
-<img class="object-cover w-full h-full" data-alt="A massive, heavy-duty industrial tyre designed for a large truck or crane, positioned dramatically against a clean, modern workshop background. The lighting is crisp and high-contrast, highlighting the deep, aggressive tread patterns and rugged sidewall. The overall aesthetic is industrial, robust, and professional." src="{{ settings.truck_category_image if settings.truck_category_image else url_for('static', filename='images/5_truck_crane_tyres.png') }}">
+<img class="object-cover w-full h-full" alt="Premium Heavy Duty Truck and Crane Tyres from MRF, Apollo, and Birla in Saharanpur" data-alt="A massive, heavy-duty industrial tyre designed for a large truck or crane, positioned dramatically against a clean, modern workshop background. The lighting is crisp and high-contrast, highlighting the deep, aggressive tread patterns and rugged sidewall. The overall aesthetic is industrial, robust, and professional." src="{{ settings.truck_category_image if settings.truck_category_image else url_for('static', filename='images/5_truck_crane_tyres.png') }}">
 </div>
 </div>
 </section>
@@ -59,7 +61,7 @@
                 <div class="flex transition-transform duration-500 ease-in-out w-full h-full carousel-inner" id="carousel-{{ tyre.id }}">
                     {% for img in tyre.images %}
                     <div class="w-full h-full flex-shrink-0 flex items-center justify-center">
-                        <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ img.image_filename }}" alt="{{ tyre.model }}"/>
+                        <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ img.image_filename }}" alt="{{ tyre.brand }} {{ tyre.model }} - Heavy Duty Truck Tyre in Saharanpur"/>
                     </div>
                     {% endfor %}
                 </div>
@@ -67,7 +69,7 @@
                 <button onclick="prevSlide('carousel-{{ tyre.id }}', {{ tyre.images|length }})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-surface text-primary p-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity cut-shadow-sm hover:text-safety-orange z-10"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
                 <button onclick="nextSlide('carousel-{{ tyre.id }}', {{ tyre.images|length }})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-surface text-primary p-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity cut-shadow-sm hover:text-safety-orange z-10"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
             {% elif tyre.primary_image %}
-                <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ tyre.primary_image }}" alt="{{ tyre.model }}"/>
+                <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ tyre.primary_image }}" alt="{{ tyre.brand }} {{ tyre.model }} - Heavy Duty Truck Tyre in Saharanpur"/>
             {% else %}
                 <div class="text-steel-gray font-label-caps">No Image</div>
             {% endif %}

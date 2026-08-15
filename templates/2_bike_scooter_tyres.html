@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% block title %}Bike & Scooter Tyres in Saharanpur | MRF, Apollo, Birla{% endblock %}
+{% block meta_description %}Top quality bike and scooter tyres available at Shree Durga Tyre House Saharanpur. Get long-lasting tyres at wholesale prices.{% endblock %}
 {% block content %}
 
 <!-- Hero Section -->
@@ -29,7 +31,7 @@
 </div>
 </div>
 <div class="relative h-[400px] md:h-[500px] w-full bg-surface-container border border-steel-gray/20 rounded cut-shadow overflow-hidden">
-<img class="object-cover w-full h-full" data-alt="A dynamic, high-contrast hero image featuring premium two-wheeler tyres stacked in an industrial setting. Golden lighting accents the tread patterns against a deep, dark background. The mood is powerful, precise, and high-performance, reflecting an automotive workshop aesthetic." src="{{ settings.bike_category_image if settings.bike_category_image else url_for('static', filename='images/2_bike_scooter_tyres.png') }}">
+<img class="object-cover w-full h-full" alt="Premium Bike and Scooter Tyres in Saharanpur" data-alt="A dynamic, high-contrast hero image featuring premium two-wheeler tyres stacked in an industrial setting. Golden lighting accents the tread patterns against a deep, dark background. The mood is powerful, precise, and high-performance, reflecting an automotive workshop aesthetic." src="{{ settings.bike_category_image if settings.bike_category_image else url_for('static', filename='images/2_bike_scooter_tyres.png') }}">
 </div>
 </div>
 </section>
@@ -61,7 +63,7 @@
                 <div class="flex transition-transform duration-500 ease-in-out w-full h-full carousel-inner" id="carousel-{{ tyre.id }}">
                     {% for img in tyre.images %}
                     <div class="w-full h-full flex-shrink-0 flex items-center justify-center">
-                        <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ img.image_filename }}" alt="{{ tyre.model }}"/>
+                        <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ img.image_filename }}" alt="{{ tyre.brand }} {{ tyre.model }} - Bike and Scooter Tyre in Saharanpur"/>
                     </div>
                     {% endfor %}
                 </div>
@@ -69,7 +71,7 @@
                 <button onclick="prevSlide('carousel-{{ tyre.id }}', {{ tyre.images|length }})" class="absolute left-2 top-1/2 -translate-y-1/2 bg-surface text-primary p-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity cut-shadow-sm hover:text-safety-orange z-10"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
                 <button onclick="nextSlide('carousel-{{ tyre.id }}', {{ tyre.images|length }})" class="absolute right-2 top-1/2 -translate-y-1/2 bg-surface text-primary p-1 rounded-full opacity-0 group-hover/carousel:opacity-100 transition-opacity cut-shadow-sm hover:text-safety-orange z-10"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
             {% elif tyre.primary_image %}
-                <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ tyre.primary_image }}" alt="{{ tyre.model }}"/>
+                <img class="object-contain h-full w-full group-hover:scale-105 transition-transform duration-500" src="{{ tyre.primary_image }}" alt="{{ tyre.brand }} {{ tyre.model }} - Bike and Scooter Tyre in Saharanpur"/>
             {% else %}
                 <div class="text-steel-gray font-label-caps">No Image</div>
             {% endif %}
