@@ -581,5 +581,9 @@ def robots():
     content = "User-agent: *\nDisallow: /admin/\nSitemap: https://www.shreedurgatyrehouse.in/sitemap.xml\n"
     return Response(content, mimetype='text/plain')
 
+@app.route('/googled6f078a4c466fa2d.html')
+def google_verification():
+    return Response("google-site-verification: googled6f078a4c466fa2d.html", mimetype='text/html')
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
