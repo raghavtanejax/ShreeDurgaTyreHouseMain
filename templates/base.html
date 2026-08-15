@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -162,11 +162,40 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f7f9ff; }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9ff; transition: background-color 0.3s, color 0.3s; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         .tech-shadow { box-shadow: 0 10px 30px rgba(52, 58, 64, 0.08); }
+        
+        /* Dark Mode Overrides */
+        html.dark body, html.dark .bg-background { background-color: #121212 !important; color: #e4e6eb !important; }
+        html.dark .bg-surface, html.dark .bg-surface-light, html.dark .bg-surface-container-lowest, html.dark .bg-surface-bright { background-color: #1e1e1e !important; }
+        html.dark .bg-surface-container { background-color: #2a2a2a !important; }
+        html.dark .bg-surface-container-low { background-color: #242526 !important; }
+        html.dark .bg-surface-container-high { background-color: #3a3a3a !important; }
+        
+        html.dark .text-on-surface, html.dark .text-on-background, html.dark .text-deep-slate { color: #f5f5f5 !important; }
+        html.dark .text-on-surface-variant, html.dark .text-outline, html.dark .text-steel-gray { color: #a3a3a3 !important; }
+        html.dark .text-primary, html.dark .text-racing-blue { color: #6bb0ff !important; }
+        html.dark .bg-deep-slate { background-color: #0d0d0d !important; }
+        
+        html.dark .border-outline-variant\/30, html.dark .border-outline-variant\/50, html.dark .border-steel-gray\/20, html.dark .border-steel-gray\/30, html.dark .border-surface-variant, html.dark .border-steel-gray\/10 {
+            border-color: #404040 !important;
+        }
+        
+        html.dark .bg-surface\/80 { background-color: rgba(30, 30, 30, 0.8) !important; }
+        html.dark .tech-shadow { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important; }
+        
+        html.dark footer { background-color: #111111 !important; border-top: 1px solid #333; }
+        
         {% block extra_css %}{% endblock %}
     </style>
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -212,6 +241,11 @@
             {% endif %}
         </div>
         <div class="flex items-center gap-4">
+            <!-- Dark Mode Toggle Button -->
+            <button id="theme-toggle" type="button" class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none rounded-lg text-sm p-2">
+                <span id="theme-toggle-dark-icon" class="material-symbols-outlined hidden">dark_mode</span>
+                <span id="theme-toggle-light-icon" class="material-symbols-outlined hidden">light_mode</span>
+            </button>
             <span class="hidden lg:block text-racing-blue font-body-lg text-body-lg font-bold">Call: {{ settings.primary_contact if settings else '' }}</span>
             <a class="bg-racing-blue text-on-primary px-6 py-2 rounded-lg hover:bg-primary-container transition-colors scale-95 active:scale-90 font-medium hidden md:block" href="{{ url_for('index') }}#quote">Request a Quote</a>
             
@@ -259,6 +293,42 @@
         spans[1].classList.toggle('opacity-0');
         spans[2].classList.toggle('-translate-y-2');
         spans[2].classList.toggle('-rotate-45');
+        });
+    }
+
+    // Theme Toggle Logic
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    if (themeToggleDarkIcon && themeToggleLightIcon && themeToggleBtn) {
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
         });
     }
   });
