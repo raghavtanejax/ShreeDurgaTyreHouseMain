@@ -373,9 +373,14 @@
     <!-- Google Translate Element (hidden) -->
     <div id="google_translate_element" style="display:none;"></div>
     
-    <button id="translate-btn" class="notranslate bg-racing-blue text-on-primary px-5 py-3 rounded-full tech-shadow flex items-center gap-2 hover:bg-primary-container transition-all active:scale-95 font-body-md font-bold border-2 border-surface-light dark:border-inverse-surface" onclick="toggleLanguage()">
+    <button id="translate-hi-btn" class="notranslate bg-racing-blue text-on-primary px-5 py-3 rounded-full tech-shadow flex items-center gap-2 hover:bg-primary-container transition-all active:scale-95 font-body-md font-bold border-2 border-surface-light dark:border-inverse-surface hidden" onclick="translateToHindi()">
         <span class="material-symbols-outlined">translate</span>
-        <span id="translate-btn-text">Hindi Translate</span>
+        <span>Hindi Translate</span>
+    </button>
+
+    <button id="translate-en-btn" class="notranslate bg-surface-bright text-racing-blue px-5 py-3 rounded-full tech-shadow flex items-center gap-2 hover:bg-surface transition-all active:scale-95 font-body-md font-bold border-2 border-racing-blue hidden" onclick="translateToEnglish()">
+        <span class="material-symbols-outlined">language</span>
+        <span>Translate to English</span>
     </button>
 </div>
 
@@ -397,31 +402,32 @@
         return "";
     }
 
-    function toggleLanguage() {
-        const currentLang = getCookie('googtrans');
+    function translateToHindi() {
         const domain = window.location.hostname;
-        
-        if (currentLang === '/en/hi') {
-            // Switch back to English by deleting all translation cookies
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + domain + "; path=/;";
-            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=." + domain + "; path=/;";
-        } else {
-            // Switch to Hindi
-            document.cookie = "googtrans=/en/hi; path=/";
-            document.cookie = "googtrans=/en/hi; domain=." + domain + "; path=/";
-        }
+        document.cookie = "googtrans=/en/hi; path=/";
+        document.cookie = "googtrans=/en/hi; domain=." + domain + "; path=/";
+        location.reload();
+    }
+
+    function translateToEnglish() {
+        const domain = window.location.hostname;
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + domain + "; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=." + domain + "; path=/;";
         location.reload();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
         const currentLang = getCookie('googtrans');
-        const btnText = document.getElementById('translate-btn-text');
+        const hiBtn = document.getElementById('translate-hi-btn');
+        const enBtn = document.getElementById('translate-en-btn');
         
         if (currentLang === '/en/hi') {
-            btnText.innerText = "Translate to English";
+            enBtn.classList.remove('hidden');
+            hiBtn.classList.add('hidden');
         } else {
-            btnText.innerText = "Hindi Translate";
+            hiBtn.classList.remove('hidden');
+            enBtn.classList.add('hidden');
         }
     });
 </script>
