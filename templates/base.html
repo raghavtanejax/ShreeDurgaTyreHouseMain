@@ -411,9 +411,20 @@
 
     function translateToEnglish() {
         const domain = window.location.hostname;
-        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + domain + "; path=/;";
-        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=." + domain + "; path=/;";
+        
+        // 1. Forcefully overwrite the translation cookie to English-to-English
+        document.cookie = "googtrans=/en/en; path=/";
+        document.cookie = "googtrans=/en/en; domain=" + domain + "; path=/";
+        document.cookie = "googtrans=/en/en; domain=." + domain + "; path=/";
+        
+        // 2. Also attempt to explicitly delete it (handles edge cases in different browsers)
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=" + domain + "; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; domain=." + domain + "; path=/;";
+        
+        // 3. Clear any cached translation state
+        sessionStorage.clear();
+        
         location.reload();
     }
 
